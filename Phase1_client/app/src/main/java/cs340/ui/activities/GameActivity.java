@@ -267,6 +267,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                         compareCount++;
                     }
                 }
+                /*
                 //Multiple cards changed, it was shuffled
                 if (compareCount > 1) {
                     deckFragment.initializeFaceUpCards(faceUpCards);
@@ -275,6 +276,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 else {
                     deckFragment.onFaceUpCardUpdated(newCard, index);
                 }
+                */
+                deckFragment.initializeFaceUpCards(faceUpCards);
             }
         });
     }

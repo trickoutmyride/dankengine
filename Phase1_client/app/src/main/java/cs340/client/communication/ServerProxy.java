@@ -86,7 +86,7 @@ public class ServerProxy implements IServer {
 
 	public void drawDestination(Object request) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
-		turnState = turnState.drawDestination((drawRequest).getPlayer());
+		turnState = turnState.drawDestination(drawRequest.getPlayer());
 		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
