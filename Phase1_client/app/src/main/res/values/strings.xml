@@ -43,6 +43,9 @@
     <string name="game_lobby_label">Game Lobby</string>
     <string name="end_game_label">Game Over</string>
 
+    <string name="train_card_color">Train Card Color</string>
+    <string name="wild_cards">Wild Cards</string>
+    <string name="cancel">Cancel</string>
 
 
     <string-array name="colors_array">

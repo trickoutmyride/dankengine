@@ -1,6 +1,8 @@
 package cs340.ui.fragments;
 
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Paint;
@@ -30,15 +32,34 @@ import java.util.Map;
 
 import cs340.shared.model.MapRoute;
 import cs340.ui.R;
+import cs340.ui.activities.ClaimRouteActivity;
 import cs340.ui.fragments.interfaces.IMapFragment;
 import cs340.ui.presenters.MapPresenter;
 
+import static android.app.Activity.RESULT_OK;
+
 public class GameMapFragment extends Fragment implements IMapFragment, OnMapReadyCallback {
+    private static final Integer CARD_QUANTITIES_REQUESTED = 24;
     private GoogleMap map;
     private MapPresenter presenter;
     private Map<Polyline, MapRoute> routeLines = new HashMap<>();
 
     public GameMapFragment() {}
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == CARD_QUANTITIES_REQUESTED && resultCode == RESULT_OK) {
+            presenter.claimRoute(data);
+        }
+    }
+
+    @Override
+    public void claimRoute(ClaimRouteActivity.IntentFactory intentFactory) {
+        Intent intent = intentFactory.context(getContext()).createIntent();
+        startActivityForResult(intent, CARD_QUANTITIES_REQUESTED);
+    }
 
     private BitmapDescriptor createTextIcon(String text, Integer color, Integer background) {
         Paint paint = new Paint(Paint.ANTI_ALIAS_FLAG | Paint.DITHER_FLAG);
@@ -56,7 +77,7 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
         return BitmapDescriptorFactory.fromBitmap(image);
     }
 
-    public MapPresenter getPresenter() {
+    public MapPresenter presenter() {
         return presenter;
     }
 
@@ -101,6 +122,7 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
             public void onPolylineClick(Polyline polyline) {
                 MapRoute route = routeLines.get(polyline);
                 if (presenter != null && route != null) presenter.claimRoute(route);
+                else Log.d("GameMapFragment", "presenter was null or route was null");
             }
         });
     }

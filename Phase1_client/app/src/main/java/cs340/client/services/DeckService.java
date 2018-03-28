@@ -16,7 +16,7 @@ public class DeckService {
 	private static ServerProxy proxy = new ServerProxy();
 
 	public static void drawDestination(int gameID, Player player) {
-		proxy.drawDestination(new DrawDestinationRequest(gameID, player));
+		proxy.drawDestination(new DrawDestinationRequest(player));
 	}
 
 	public static void discardDestination(int gameID, ArrayList<DestinationCard> cards, Player player, boolean isDuringGame) {
