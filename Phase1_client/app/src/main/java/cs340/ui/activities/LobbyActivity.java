@@ -93,21 +93,16 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                 if (currentGame.getPlayers().size() == 1) {
                     onError("Cannot start game with one player.");
                 }
+                else if (currentGame.getPlayers().size() != currentGame.getCapacity()){
+                    String playersMissing = "Missing " + String.valueOf(currentGame.getCapacity() - currentGame.getPlayers().size()) + " players.";
+                    onError(playersMissing);
+                }
+                else if (!currentPlayer.getUsername().equals(String.valueOf(currentGame.getPlayers().get(0)))){
+                    onError("Must be creator to start the game");
+                }
                 else {
                     lobbyPresenter.startGame();
                 }
-
-                /*
-                //Eventually implement capacity check
-                if (currentGame.getCapacity() == currentGame.getPlayers().size()){
-                    lobbyPresenter.startGame();
-                    onError("Game Started!");
-                }
-                else {
-                    //onError("Not enough players to start. Waiting on " + Integer.toString(currentGame.getCapacity() - currentGame.getPlayers().size()) + "players.");
-                    onError("Game Started!");
-                }
-                */
             }
         });
     }
@@ -142,8 +137,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
             }
         }
 
-
-
         //Pass game and current player to the lobby activity
         intent.putExtra("currentGame", gson.toJson(game));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
@@ -151,8 +144,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         lobbyPresenter.detach();
         finish();
     }
-
-
 
     /**
      * Update the game list by resetting the list adapter for the playerList RecyclerView
@@ -162,7 +153,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
         currentGame = game;
         playerListAdapter = new PlayerListAdapter(game.getPlayers(), this, currentPlayer, currentGame.getColors());
         playerList.setAdapter(playerListAdapter);
-
     }
 
 }

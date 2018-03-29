@@ -144,11 +144,17 @@ public class ClientModel {
 	}
 
 	public void updateHandTrainCards(Player player) {
+		if (currentPlayer.getUsername().equals(player.getUsername())) {
+			setCurrentPlayer(player);
+		}
 		for (HandObserver observer : handObservers) { observer.onTrainCardsUpdated(player); }
 	}
 
 	//Update destination cards in the current player's hand
 	public void updatePlayerDestinationCards(Player player) {
+		if (currentPlayer.getUsername().equals(player.getUsername())) {
+			setCurrentPlayer(player);
+		}
 		for (GameObserver observer : gameObservers) { observer.onDestinationCardsUpdated(player); }
 	}
 
@@ -172,6 +178,7 @@ public class ClientModel {
 	}
 
 	public void changeTurn(Game game){
+		setCurrentGame(game);
 		for (GameObserver observer: gameObservers){observer.onTurnChanged(game);}
 	}
 
@@ -221,6 +228,9 @@ public class ClientModel {
 
 	//Update a single player's information
 	public void updatePlayer(Player player){
+		if (currentPlayer.getUsername().equals(player.getUsername())) {
+			setCurrentPlayer(player);
+		}
 		for (PlayersObserver observer : playersObservers) { observer.onPlayerUpdated(player); }
 	}
 
@@ -249,6 +259,9 @@ public class ClientModel {
 
 	//Update cards in the face up deck
 	public void updateFaceUpDeck(int index, TrainCard oldCard, TrainCard newCard, Player player, ArrayList<TrainCard> faceUpCards){
+		if (currentPlayer.getUsername().equals(player.getUsername())) {
+			setCurrentPlayer(player);
+		}
 		currentGame.setTrainFaceup(faceUpCards);
 		for (DeckObserver observer : deckObservers){ observer.updateFaceUpDeck(index, oldCard, newCard, player, faceUpCards); }
 	}

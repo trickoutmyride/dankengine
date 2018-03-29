@@ -21,6 +21,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.DestinationCard;
 import cs340.shared.model.Player;
 import cs340.ui.R;
@@ -138,6 +139,8 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
         if (!selection){
             drawButton = d.findViewById(R.id.draw_destination_button);
             drawButton.setVisibility(View.VISIBLE);
+            String drawMore = "Draw More Cards (" + String.valueOf(ClientModel.getInstance().getCurrentGame().getDestinationDeck().size()) + ")";
+            drawButton.setText(drawMore);
             drawButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

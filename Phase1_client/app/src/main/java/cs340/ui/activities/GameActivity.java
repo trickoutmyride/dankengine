@@ -94,8 +94,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
+        ClientModel.getInstance().setCurrentPlayer(currentPlayer);
+        ClientModel.getInstance().setCurrentGame(currentGame);
         gamePresenter = new GamePresenter(this);
-
         currentHistory = new ArrayList<>();
         currentChat = new ArrayList<>();
 
@@ -255,6 +256,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
+                    ClientModel.getInstance().setCurrentPlayer(player);
                     handFragment.onTrainCardsUpdated(currentPlayer);
                 }
                 playersFragment.onPlayerUpdated(player);
@@ -267,17 +269,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                         compareCount++;
                     }
                 }
-                /*
-                //Multiple cards changed, it was shuffled
-                if (compareCount > 1) {
-                    deckFragment.initializeFaceUpCards(faceUpCards);
-                }
-                //Only one card changed (the drawn card)
-                else {
-                    deckFragment.onFaceUpCardUpdated(newCard, index);
-                }
-                */
                 deckFragment.initializeFaceUpCards(faceUpCards);
+                deckFragment.updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
             }
         });
     }
@@ -289,6 +282,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
+                    ClientModel.getInstance().setCurrentPlayer(player);
                 }
                 playersFragment.onPlayerUpdated(player);
             }
@@ -314,6 +308,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 System.out.println("onTurnUpdated!");
                 currentGame = game;
+                ClientModel.getInstance().setCurrentGame(game);
+                deckFragment.updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
                 for (Player p : game.getPlayers()) {
                     onPlayerUpdated(p);
                 }
@@ -332,6 +328,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
+                    ClientModel.getInstance().setCurrentPlayer(player);
                 }
                 playersFragment.onPlayerUpdated(player);
             }

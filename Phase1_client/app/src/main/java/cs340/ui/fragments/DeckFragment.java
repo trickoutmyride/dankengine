@@ -9,10 +9,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
+import cs340.shared.model.ClientModel;
 import cs340.shared.model.Game;
 import cs340.shared.model.Player;
 import cs340.shared.model.TrainCard;
@@ -28,7 +30,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
 
     private IDeckPresenter deckPresenter;
     private RecyclerView faceUpCardsView;
-    private ImageButton deckButton;
+    private Button deckButton;
     private DeckCardAdapter deckCardAdapter;
     private ArrayList<TrainCard> currentFaceUpCards;
 
@@ -51,6 +53,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
 
         //Deck button to get a random card from the top of the deck
         deckButton = v.findViewById(R.id.face_down_deck);
+        updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
 
         deckButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +95,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         //Replace cards
         deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
         faceUpCardsView.setAdapter(deckCardAdapter);
+        updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
     }
 
     @Override
@@ -99,12 +103,19 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         currentFaceUpCards = cards;
         deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
         faceUpCardsView.setAdapter(deckCardAdapter);
+        updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
     }
 
     //Tell the deck presenter that we've selected a card
     public void cardSelected(int index){
         System.out.println("Card Selected! " + currentFaceUpCards.get(index).getColor());
         deckPresenter.cardSelected(index);
+    }
+
+    @Override
+    public void updateDeckCount(int count) {
+        String cardsInDeck = String.valueOf(count);
+        deckButton.setText(cardsInDeck);
     }
 
     public GameActivity getGameActivity(){

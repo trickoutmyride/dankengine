@@ -13,4 +13,5 @@ public interface IDeckFragment {
     void onFaceUpCardUpdated(TrainCard card, int index);
     GameActivity getGameActivity();
     void initializeFaceUpCards(ArrayList<TrainCard> cards);
+    void updateDeckCount(int count);
 }

@@ -1,6 +1,7 @@
 package cs340.shared.model;
 
 import java.util.ArrayList;
+import java.util.Deque;
 import java.util.HashMap;
 
 public class Game {
@@ -22,6 +23,7 @@ public class Game {
 	private GameMap gameMap;
 	private int winner;
 	private int longestRoadIndex;
+	private Deque<DestinationCard> destinationDeck;
 
 
 	/* "Maybe Later" Fields */
@@ -161,4 +163,9 @@ public class Game {
 	public int getLongestRoadIndex(){
 		return this.longestRoadIndex;
 	}
+	public ArrayList<TrainCard> getTrainDeck() { return trainDeck; }
+	public Deque<DestinationCard> getDestinationDeck() {
+		return destinationDeck;
+	}
+
 }
