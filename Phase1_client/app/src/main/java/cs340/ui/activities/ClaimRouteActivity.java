@@ -14,6 +14,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,26 +27,33 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
     public static final String SIZE = "size";
     public static final String START = "start";
     public static final String STOP = "stop";
+    public static final String TAG = ClaimRouteActivity.class.getSimpleName();
     private List<String> availableColors;
 
     public List<String> getAvailableColors() {
         List<String> colors = new ArrayList<>();
         Map<String, Integer> quantities = new HashMap<>();
         Integer needed = getSize();
+        Log.d(TAG, Arrays.toString(getCards()));
         if (getColor().equals("gray") || getColor().equals("grey")) {
             for (String card : getCards()) {
+                Log.d(TAG, "Card is " + card);
                 if (quantities.containsKey(card)) {
                     quantities.put(card, quantities.get(card) + 1);
                 } else {
                     quantities.put(card, 1);
                 }
             }
+            Log.d(TAG, "Quantities:");
+            for (Map.Entry<String, Integer> quantity : quantities.entrySet()) {
+                Log.d(TAG, quantity.getKey() + ": " + quantity.getValue().toString());
+            }
             if (quantities.containsKey("wild")) {
                 needed -= quantities.get("wild");
                 quantities.remove("wild");
             }
             for (Map.Entry<String, Integer> quantity : quantities.entrySet()) {
-                if (quantity.getValue() > needed) {
+                if (quantity.getValue() >= needed) {
                     colors.add(quantity.getKey());
                 }
             }
