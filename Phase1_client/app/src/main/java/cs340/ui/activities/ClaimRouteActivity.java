@@ -23,12 +23,14 @@ import cs340.ui.R;
 
 public class ClaimRouteActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, Button.OnClickListener, SeekBar.OnSeekBarChangeListener {
     public static final String CARDS = "cards";
+    public static final String CARS = "cars";
     public static final String COLOR = "color";
     public static final String SIZE = "size";
     public static final String START = "start";
     public static final String STOP = "stop";
     public static final String TAG = ClaimRouteActivity.class.getSimpleName();
     private List<String> availableColors;
+    private Boolean canClaim;
 
     public List<String> getAvailableColors() {
         List<String> colors = new ArrayList<>();
@@ -72,6 +74,14 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
 
     public static String[] getCards(Intent intent) {
         return intent.getStringArrayExtra(CARDS);
+    }
+
+    public Integer getCars() {
+        return getCars(getIntent());
+    }
+
+    public static Integer getCars(Intent intent) {
+        return intent.getIntExtra(CARS, 0);
     }
 
     public String getColor() {
@@ -125,14 +135,18 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
         setContentView(R.layout.activity_claim_route);
 
         TextView routeView = findViewById(R.id.route);
+        TextView trainCars = findViewById(R.id.train_cars);
         Spinner spinner = findViewById(R.id.color_select);
         SeekBar colorView = findViewById(R.id.colored_cards);
         SeekBar wildView = findViewById(R.id.wild_cards);
 
         String route = getStart() + " -> " + getStop();
         routeView.setText(route);
+        String carCount = "Train Cars: " + getCars().toString();
+        trainCars.setText(carCount);
 
         availableColors = getAvailableColors();
+        canClaim = getCars() >= getSize();
 //        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.colors_array, android.R.layout.simple_spinner_item);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, availableColors);
         spinner.setAdapter(adapter);
@@ -185,7 +199,7 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
         Integer remaining = getSize() - colorView.getProgress() - wildView.getProgress();
         String spacesRemaining = "Spaces Remaining: " + remaining.toString();
         remainingView.setText(spacesRemaining);
-        submitButton.setEnabled(remaining == 0);
+        submitButton.setEnabled(canClaim && remaining == 0);
     }
 
     @Override
@@ -223,6 +237,7 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
 
     public static class IntentFactory {
         private String[] cards;
+        private Integer cars;
         private String color;
         private Context context;
         private Integer size;
@@ -237,6 +252,15 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
 
         public IntentFactory cards(String[] cards) {
             this.cards = cards;
+            return this;
+        }
+
+        public Integer cars() {
+            return cars;
+        }
+
+        public IntentFactory cars(Integer cars) {
+            this.cars = cars;
             return this;
         }
 
@@ -261,6 +285,7 @@ public class ClaimRouteActivity extends AppCompatActivity implements AdapterView
         public Intent createIntent() {
             Intent intent = new Intent(context, ClaimRouteActivity.class);
             intent.putExtra(CARDS, cards);
+            intent.putExtra(CARS, cars);
             intent.putExtra(COLOR, color);
             intent.putExtra(SIZE, size);
             intent.putExtra(START, start);

@@ -70,6 +70,7 @@ public class MapPresenter implements GameMap.Observer, IMapPresenter {
         ClaimRouteActivity.IntentFactory factory = new ClaimRouteActivity.IntentFactory()
 //                .cards(trainCards.toArray(new String[trainCards.size()]))
                 .cards(trainCards.toArray(new String[0]))
+                .cars(ClientModel.getInstance().getCurrentPlayer().getTrainCars())
                 .color(color)
                 .size(size)
                 .start(start)
