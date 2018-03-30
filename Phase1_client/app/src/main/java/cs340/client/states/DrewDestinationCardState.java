@@ -1,33 +1,32 @@
 package cs340.client.states;
 
-import cs340.client.services.ClientFacade;
-import cs340.client.model.Player;
 import cs340.client.requests.DrawFaceupRequest;
+import cs340.client.services.ClientFacade;
 
 /**
  * Created by Mark on 3/22/2018.
  */
 
 public class DrewDestinationCardState extends TurnState {
-	public TurnState claimRoute(Player player){
+	public TurnState claimRoute(){
 		this.fail();
 		ClientFacade.getInstance().error("You must pick your Destination Cards!");
 		return this;
 	}
-	public TurnState drawDestination(Player player){
+	public TurnState drawDestination(){
 		this.fail();
 		ClientFacade.getInstance().error("You must pick your Destination Cards!");
 		return this;
 	}
-	public TurnState discardDestination(Player player) {
-		return new NotMyTurnState(player);
+	public TurnState discardDestination() {
+		return new NotMyTurnState();
 	}
-	public TurnState drawTrainCard (Player player){
+	public TurnState drawTrainCard (){
 		this.fail();
 		ClientFacade.getInstance().error("You must pick your Destination Cards!");
 		return this;
 	}
-	public TurnState drawFaceupCard (Player player, DrawFaceupRequest request){
+	public TurnState drawFaceupCard (DrawFaceupRequest request){
 		this.fail();
 		ClientFacade.getInstance().error("You must pick your Destination Cards!");
 		return this;

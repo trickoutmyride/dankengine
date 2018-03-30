@@ -1,45 +1,36 @@
 package cs340.client.states;
 
-import cs340.client.communication.ServerProxy;
-import cs340.client.services.ClientFacade;
-import cs340.client.model.Player;
 import cs340.client.requests.DrawFaceupRequest;
-import cs340.client.requests.EndTurnRequest;
+import cs340.client.services.ClientFacade;
 
 /**
  * Created by Mark on 3/22/2018.
  */
 
 public class NotMyTurnState extends TurnState {
-	// This constructor is called only when the game is beginning for non-game creators.
-	public NotMyTurnState () {}
 
-	// This constructor sends a command to the server announcing the end of this players turn.
-	NotMyTurnState(Player player) {
-		new ServerProxy().endTurn(new EndTurnRequest(player));
-	}
-	public TurnState claimRoute(Player player){
+	public TurnState claimRoute(){
 		this.fail();
 		ClientFacade.getInstance().error("Not Your Turn!");
 		return this;
 	}
-	public TurnState drawDestination(Player player){
+	public TurnState drawDestination(){
 		this.fail();
 		ClientFacade.getInstance().error("Not Your Turn!");
 		return this;
 	}
-	public TurnState discardDestination(Player player) {
+	public TurnState discardDestination() {
 		this.fail();
 		ClientFacade.getInstance().error("Not Your Turn!");
 		System.out.println("NotMyTurnState: discardDestination should not have been called here!");
 		return this;
 	}
-	public TurnState drawTrainCard (Player player){
+	public TurnState drawTrainCard (){
 		this.fail();
 		ClientFacade.getInstance().error("Not Your Turn!");
 		return this;
 	}
-	public TurnState drawFaceupCard (Player player, DrawFaceupRequest request){
+	public TurnState drawFaceupCard (DrawFaceupRequest request){
 		this.fail();
 		ClientFacade.getInstance().error("Not Your Turn!");
 		return this;

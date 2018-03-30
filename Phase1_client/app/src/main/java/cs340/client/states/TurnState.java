@@ -1,6 +1,5 @@
 package cs340.client.states;
 
-import cs340.client.model.Player;
 import cs340.client.requests.DrawFaceupRequest;
 
 public abstract class TurnState {
@@ -8,11 +7,11 @@ public abstract class TurnState {
 	/**
 	 * Each method returns the new Turn State (given failure, it will only return itself after calling this.fail() ).
 	 */
-	public abstract TurnState claimRoute(Player player);
-	public abstract TurnState drawDestination(Player player);
-	public abstract TurnState discardDestination(Player player);
-	public abstract TurnState drawTrainCard (Player player);
-	public abstract TurnState drawFaceupCard (Player player, DrawFaceupRequest request);
+	public abstract TurnState claimRoute();
+	public abstract TurnState drawDestination();
+	public abstract TurnState discardDestination();
+	public abstract TurnState drawTrainCard ();
+	public abstract TurnState drawFaceupCard (DrawFaceupRequest request);
 	/**
 	 * @returns true if the last call was made successfully
 	 */

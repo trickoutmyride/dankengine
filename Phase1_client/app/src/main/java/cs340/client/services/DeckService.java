@@ -28,6 +28,7 @@ public class DeckService {
 	}
 
 	public static void drawFaceup(Player player, int index) {
+		System.out.println("DeckService.drawFaceup(" + index +"), by " + player.getUsername());
 		proxy.drawFaceupCard(new DrawFaceupRequest(player, index));
 	}
 

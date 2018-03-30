@@ -22,7 +22,10 @@ public class TurnService {
 		ClientModel.getInstance().changeTurn(game);
 		String usernameWithTurn = game.getPlayers().get(game.getTurn()).getUsername();
 		String usernameOfClient = ClientModel.getInstance().getCurrentPlayer().getUsername();
+		System.out.println("TurnService: My username is: " + usernameOfClient);
+		System.out.println("TurnService: The next username is: " + usernameWithTurn);
 		if (usernameWithTurn.equals(usernameOfClient)) {
+			System.out.println("So I get to go next!");
 			ServerProxy.setTurnState(new MyTurnState());
 		}
 		ClientModel.getInstance().replaceHistory(game.getHistory());

@@ -76,22 +76,29 @@ public class ServerProxy implements IServer {
 
 	public void claimRoute(Object request) {
 		ClaimRouteRequest claimRequest = (ClaimRouteRequest) request;
-		turnState = turnState.claimRoute((claimRequest).getPlayer());
+		turnState = turnState.claimRoute();
 		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("claimRoute", request);
 		ServerMessage message = new ServerMessage(claimRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+
+		this.endTurn(new EndTurnRequest(claimRequest.getPlayer()));
 	}
 
 	public void drawDestination(Object request) {
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
-		turnState = turnState.drawDestination(drawRequest.getPlayer());
+		turnState = turnState.drawDestination();
 		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+
+		// It is no longer your turn per state pattern.
+		if(turnState.getClass() == NotMyTurnState.class) {
+			this.endTurn(new EndTurnRequest(drawRequest.getPlayer()));
+		}
 	}
 
 	/**
@@ -100,36 +107,53 @@ public class ServerProxy implements IServer {
 	public void discardDestination(Object request, boolean isDuringGame) {
 		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
 		if (isDuringGame) {
-			turnState = turnState.drawDestination((discardRequest).getPlayer());
+			turnState = turnState.drawDestination();
 			if (!turnState.isSuccess()) return;
 		}
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("discardDestination", request);
 		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+
+		// It is no longer your turn per state pattern. It should always be NotMyTurnState at this point
+		if(turnState.getClass() == NotMyTurnState.class) {
+			this.endTurn(new EndTurnRequest(discardRequest.getPlayer()));
+		}
 	}
 
 	public void drawTrainCard (Object request) {
 		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
-		turnState = turnState.drawTrainCard((drawRequest).getPlayer());
+		turnState = turnState.drawTrainCard();
 		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawTrainCard", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+
+		// only send the endTurn if it is no longer your turn per state pattern.
+		if(turnState.getClass() == NotMyTurnState.class) {
+			this.endTurn(new EndTurnRequest(drawRequest.getPlayer()));
+		}
 	}
 
 	public void drawFaceupCard (Object request) {
+		System.out.println("drawFaceupCard");
 		DrawFaceupRequest drawRequest = (DrawFaceupRequest) request;
-		turnState = turnState.drawFaceupCard((drawRequest).getPlayer(), drawRequest);
+		turnState = turnState.drawFaceupCard(drawRequest);
 		if (!turnState.isSuccess()) return;
 
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawFaceup", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
+
+		// only send the endTurn if it is no longer your turn per state pattern.
+		if(turnState.getClass() == NotMyTurnState.class) {
+			this.endTurn(new EndTurnRequest(drawRequest.getPlayer()));
+		}
 	}
 
 	public void endTurn(Object request) {
+		System.out.println("Sending endTurn");
 		EndTurnRequest endRequest = (EndTurnRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("endTurn", request);
 		ServerMessage message = new ServerMessage(endRequest.getPlayer().getAuthToken(), command);
