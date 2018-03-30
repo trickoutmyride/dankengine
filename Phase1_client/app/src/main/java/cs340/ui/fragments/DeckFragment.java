@@ -57,9 +57,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
         deckButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (((GameActivity)getActivity()).myTurn()) {
-                    deckPresenter.drawFromDeck();
-                }
+                deckPresenter.drawFromDeck();
             }
         });
 
@@ -84,7 +82,6 @@ public class DeckFragment extends Fragment implements IDeckFragment {
 
     @Override
     public void onFaceUpCardUpdated(TrainCard card, int index){
-
         System.out.println("Old Card: " + currentFaceUpCards.get(index).getColor() + ", New Card: " + card.getColor() + ".");
 
         //REPLACE SINGLE CARD IN ARRAY
@@ -107,7 +104,7 @@ public class DeckFragment extends Fragment implements IDeckFragment {
 
     //Tell the deck presenter that we've selected a card
     public void cardSelected(int index){
-        System.out.println("Card Selected! " + currentFaceUpCards.get(index).getColor());
+        System.out.println("deckFragment.cardSelected(): card = " + currentFaceUpCards.get(index).getColor());
         deckPresenter.cardSelected(index);
     }
 

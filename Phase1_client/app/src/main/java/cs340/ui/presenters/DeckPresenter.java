@@ -37,11 +37,13 @@ public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
 
     @Override
     public void cardSelected(int index){
+        System.out.println("DeckPresenter.cardSelected(): index = " + String.valueOf(index));
         DeckService.drawFaceup(deckFragment.getCurrentPlayer(), index);
     }
 
     @Override
     public void drawFromDeck(){
+        System.out.println("DeckPresenter.drawFromDeck())");
         DeckService.drawTrainCard(deckFragment.getCurrentPlayer());
     }
 }
