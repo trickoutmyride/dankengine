@@ -14,8 +14,8 @@ import com.google.gson.Gson;
 
 import java.util.HashMap;
 
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
 import cs340.ui.R;
 import cs340.ui.activities.interfaces.ILobbyActivity;
 import cs340.ui.fragments.adapters.PlayerListAdapter;
@@ -97,7 +97,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                     String playersMissing = "Missing " + String.valueOf(currentGame.getCapacity() - currentGame.getPlayers().size()) + " players.";
                     onError(playersMissing);
                 }
-                else if (!currentPlayer.getUsername().equals(String.valueOf(currentGame.getPlayers().get(0)))){
+                else if (!currentPlayer.getUsername().equals(currentGame.getPlayers().get(0).getUsername())){
                     onError("Must be creator to start the game");
                 }
                 else {

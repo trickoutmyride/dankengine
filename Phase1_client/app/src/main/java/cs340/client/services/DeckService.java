@@ -3,14 +3,14 @@ package cs340.client.services;
 import java.util.ArrayList;
 
 import cs340.client.communication.ServerProxy;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.DestinationCard;
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
-import cs340.shared.requests.DiscardDestinationRequest;
-import cs340.shared.requests.DrawDestinationRequest;
-import cs340.shared.requests.DrawFaceupRequest;
-import cs340.shared.requests.DrawTrainCardRequest;
+import cs340.client.model.ClientModel;
+import cs340.client.model.DestinationCard;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
+import cs340.client.requests.DiscardDestinationRequest;
+import cs340.client.requests.DrawDestinationRequest;
+import cs340.client.requests.DrawFaceupRequest;
+import cs340.client.requests.DrawTrainCardRequest;
 
 public class DeckService {
 	private static ServerProxy proxy = new ServerProxy();

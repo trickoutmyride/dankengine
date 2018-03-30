@@ -2,7 +2,7 @@ package cs340.client.results;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Route;
+import cs340.client.model.Route;
 
 public class ClaimRouteResult {
 	private String username;

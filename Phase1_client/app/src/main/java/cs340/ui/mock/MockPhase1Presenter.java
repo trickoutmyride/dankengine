@@ -1,8 +1,8 @@
 package cs340.ui.mock;
 
 import java.util.ArrayList;
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
 import cs340.ui.activities.interfaces.ILobbyActivity;
 import cs340.ui.activities.interfaces.ILoginActivity;
 import cs340.ui.activities.interfaces.IPreGameActivity;

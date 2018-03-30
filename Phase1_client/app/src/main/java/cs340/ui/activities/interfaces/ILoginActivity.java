@@ -1,8 +1,6 @@
 package cs340.ui.activities.interfaces;
 
-import android.app.Activity;
-
-import cs340.shared.model.Player;
+import cs340.client.model.Player;
 
 /**
  * Created by sam on 2/5/18

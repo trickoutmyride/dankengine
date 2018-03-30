@@ -5,17 +5,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.DestinationCard;
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
 import cs340.ui.R;
 
 public class EndGameListAdapter extends RecyclerView.Adapter<EndGameListAdapter.ViewHolder> {

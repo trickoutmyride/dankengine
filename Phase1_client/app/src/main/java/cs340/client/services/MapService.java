@@ -3,11 +3,11 @@ package cs340.client.services;
 import java.util.ArrayList;
 
 import cs340.client.communication.ServerProxy;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Player;
-import cs340.shared.model.Route;
-import cs340.shared.model.TrainCard;
-import cs340.shared.requests.ClaimRouteRequest;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Player;
+import cs340.client.model.Route;
+import cs340.client.model.TrainCard;
+import cs340.client.requests.ClaimRouteRequest;
 
 
 public class MapService {

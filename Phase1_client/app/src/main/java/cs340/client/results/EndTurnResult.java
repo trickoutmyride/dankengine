@@ -1,6 +1,6 @@
 package cs340.client.results;
 
-import cs340.shared.model.Game;
+import cs340.client.model.Game;
 
 public class EndTurnResult {
 	private Game game;

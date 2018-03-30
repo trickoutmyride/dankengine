@@ -1,9 +1,9 @@
 package cs340.client.services;
 
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
-import cs340.shared.requests.CreateGameRequest;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
+import cs340.client.requests.CreateGameRequest;
 import cs340.client.communication.ServerProxy;
 
 public class CreateGameService {

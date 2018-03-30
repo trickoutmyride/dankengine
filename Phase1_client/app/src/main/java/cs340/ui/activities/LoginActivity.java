@@ -16,7 +16,7 @@ import android.widget.Toast;
 
 import com.google.gson.Gson;
 
-import cs340.shared.model.Player;
+import cs340.client.model.Player;
 import cs340.ui.R;
 import cs340.ui.activities.interfaces.ILoginActivity;
 import cs340.ui.presenters.interfaces.ILoginPresenter;

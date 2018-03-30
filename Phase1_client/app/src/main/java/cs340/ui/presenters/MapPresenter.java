@@ -5,16 +5,15 @@ import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 import cs340.client.services.MapService;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.GameMap;
-import cs340.shared.model.MapRoute;
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
+import cs340.client.model.ClientModel;
+import cs340.client.model.GameMap;
+import cs340.client.model.MapRoute;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
 import cs340.ui.R;
 import cs340.ui.activities.ClaimRouteActivity;
 import cs340.ui.fragments.interfaces.IMapFragment;

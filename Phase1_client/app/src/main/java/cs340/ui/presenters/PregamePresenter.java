@@ -6,9 +6,9 @@ import java.util.ArrayList;
 
 import cs340.client.services.CreateGameService;
 import cs340.client.services.JoinGameService;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
 import cs340.ui.activities.interfaces.IPreGameActivity;
 import cs340.ui.presenters.interfaces.IPregamePresenter;
 

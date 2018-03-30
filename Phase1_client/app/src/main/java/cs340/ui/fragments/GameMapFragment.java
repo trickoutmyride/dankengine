@@ -1,7 +1,6 @@
 package cs340.ui.fragments;
 
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -30,7 +29,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import java.util.HashMap;
 import java.util.Map;
 
-import cs340.shared.model.MapRoute;
+import cs340.client.model.MapRoute;
 import cs340.ui.R;
 import cs340.ui.activities.ClaimRouteActivity;
 import cs340.ui.fragments.interfaces.IMapFragment;

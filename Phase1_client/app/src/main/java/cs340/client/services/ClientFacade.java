@@ -13,9 +13,9 @@ import cs340.client.results.GameHistoryResult;
 import cs340.client.results.GameResult;
 import cs340.client.results.JoinGameResult;
 import cs340.client.results.SignInResult;
-import cs340.shared.interfaces.IClient;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.GameList;
+import cs340.client.interfaces.IClient;
+import cs340.client.model.ClientModel;
+import cs340.client.model.GameList;
 
 /**
  * Executes functions based on ClientCommands processed by CommandProcessor coming from the server.

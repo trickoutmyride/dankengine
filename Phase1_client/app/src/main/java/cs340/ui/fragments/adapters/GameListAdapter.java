@@ -9,7 +9,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Game;
+import cs340.client.model.Game;
 import cs340.ui.R;
 import cs340.ui.activities.PreGameActivity;
 

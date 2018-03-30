@@ -1,6 +1,6 @@
 package cs340.client.command;
 
-import cs340.shared.message.Message;
+import cs340.client.message.Message;
 
 public class CommandProcessor {
 	private static CommandProcessor instance;

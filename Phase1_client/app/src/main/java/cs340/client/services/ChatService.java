@@ -1,9 +1,9 @@
 package cs340.client.services;
 
 import cs340.client.communication.ServerProxy;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Player;
-import cs340.shared.requests.ChatRequest;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Player;
+import cs340.client.requests.ChatRequest;
 
 /**
  * Created by Mark on 3/7/2018.

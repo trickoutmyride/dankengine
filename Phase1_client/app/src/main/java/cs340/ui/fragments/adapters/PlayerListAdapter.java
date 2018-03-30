@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import cs340.shared.model.Player;
+import cs340.client.model.Player;
 import cs340.ui.R;
 
 /**

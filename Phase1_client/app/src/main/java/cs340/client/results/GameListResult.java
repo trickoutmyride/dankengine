@@ -2,7 +2,7 @@ package cs340.client.results;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Game;
+import cs340.client.model.Game;
 
 public class GameListResult {
 	private ArrayList<Game> games;

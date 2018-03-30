@@ -2,10 +2,10 @@ package cs340.ui.activities.interfaces;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.DestinationCard;
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
+import cs340.client.model.DestinationCard;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
 
 public interface IGameActivity {
     //stub

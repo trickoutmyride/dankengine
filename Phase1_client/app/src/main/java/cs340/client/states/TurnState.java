@@ -1,7 +1,7 @@
 package cs340.client.states;
 
-import cs340.shared.model.Player;
-import cs340.shared.requests.DrawFaceupRequest;
+import cs340.client.model.Player;
+import cs340.client.requests.DrawFaceupRequest;
 
 public abstract class TurnState {
 	private boolean success = true;

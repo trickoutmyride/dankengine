@@ -10,14 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Game;
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Game;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
 import cs340.ui.R;
 import cs340.ui.activities.GameActivity;
 import cs340.ui.fragments.adapters.DeckCardAdapter;

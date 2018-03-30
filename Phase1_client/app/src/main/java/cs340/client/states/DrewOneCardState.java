@@ -1,10 +1,10 @@
 package cs340.client.states;
 
 import cs340.client.services.ClientFacade;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
-import cs340.shared.requests.DrawFaceupRequest;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
+import cs340.client.requests.DrawFaceupRequest;
 
 public class DrewOneCardState extends TurnState {
 	public TurnState claimRoute(Player player){

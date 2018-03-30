@@ -2,9 +2,9 @@ package cs340.client.states;
 
 import cs340.client.communication.ServerProxy;
 import cs340.client.services.ClientFacade;
-import cs340.shared.model.Player;
-import cs340.shared.requests.DrawFaceupRequest;
-import cs340.shared.requests.EndTurnRequest;
+import cs340.client.model.Player;
+import cs340.client.requests.DrawFaceupRequest;
+import cs340.client.requests.EndTurnRequest;
 
 /**
  * Created by Mark on 3/22/2018.

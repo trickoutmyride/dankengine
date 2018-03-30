@@ -11,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.DestinationCard;
-import cs340.shared.model.Player;
+import cs340.client.model.DestinationCard;
+import cs340.client.model.Player;
 import cs340.ui.R;
 
 /**

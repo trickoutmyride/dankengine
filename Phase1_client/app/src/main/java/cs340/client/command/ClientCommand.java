@@ -3,7 +3,7 @@ package cs340.client.command;
 import java.lang.reflect.Method;
 
 import cs340.client.services.ClientFacade;
-import cs340.shared.interfaces.ICommand;
+import cs340.client.interfaces.ICommand;
 
 public class ClientCommand implements ICommand {
 	private String _methodName; //Specifies the method to call within the Client Facade

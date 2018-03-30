@@ -17,13 +17,12 @@ import android.widget.Button;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.DestinationCard;
-import cs340.shared.model.Player;
+import cs340.client.model.ClientModel;
+import cs340.client.model.DestinationCard;
+import cs340.client.model.Player;
 import cs340.ui.R;
 import cs340.ui.fragments.adapters.DestinationCardDisplayAdapter;
 import cs340.ui.fragments.adapters.DestinationCardSelectionAdapter;

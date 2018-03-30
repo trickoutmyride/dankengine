@@ -3,8 +3,7 @@ package cs340.client.command;
 import com.google.gson.Gson;
 
 import cs340.client.communication.ClientCommunicator;
-import cs340.shared.command.ServerCommand;
-import cs340.shared.message.ServerMessage;
+import cs340.client.message.ServerMessage;
 
 public class CommandManager {
 	private static CommandManager instance = new CommandManager();

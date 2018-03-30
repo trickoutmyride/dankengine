@@ -2,8 +2,7 @@ package cs340.ui.activities.interfaces;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Game;
-import cs340.shared.model.GameList;
+import cs340.client.model.Game;
 
 public interface IPreGameActivity {
 

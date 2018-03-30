@@ -2,8 +2,8 @@ package cs340.client.results;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
 
 public class DrawFaceupResult {
 	private TrainCard card;

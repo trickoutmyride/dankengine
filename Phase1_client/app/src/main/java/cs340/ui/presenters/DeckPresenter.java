@@ -3,9 +3,9 @@ package cs340.ui.presenters;
 import java.util.ArrayList;
 
 import cs340.client.services.DeckService;
-import cs340.shared.model.ClientModel;
-import cs340.shared.model.Player;
-import cs340.shared.model.TrainCard;
+import cs340.client.model.ClientModel;
+import cs340.client.model.Player;
+import cs340.client.model.TrainCard;
 import cs340.ui.fragments.interfaces.IDeckFragment;
 import cs340.ui.presenters.interfaces.IDeckPresenter;
 

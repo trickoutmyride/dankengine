@@ -16,11 +16,11 @@ import javax.websocket.WebSocketContainer;
 
 import cs340.client.command.CommandManager;
 import cs340.client.command.CommandProcessor;
-import cs340.shared.message.Message;
-import cs340.shared.message.MessageDecoder;
-import cs340.shared.message.MessageEncoder;
-import cs340.shared.message.ServerMessage;
-import cs340.shared.requests.SignInRequest;
+import cs340.client.message.Message;
+import cs340.client.message.MessageDecoder;
+import cs340.client.message.MessageEncoder;
+import cs340.client.message.ServerMessage;
+import cs340.client.requests.SignInRequest;
 
 @ClientEndpoint(
 		decoders = MessageDecoder.class,

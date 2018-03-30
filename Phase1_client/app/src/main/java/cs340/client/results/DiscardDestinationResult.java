@@ -2,7 +2,7 @@ package cs340.client.results;
 
 import java.util.ArrayList;
 
-import cs340.shared.model.Player;
+import cs340.client.model.Player;
 
 public class DiscardDestinationResult {
 	private Player p;
