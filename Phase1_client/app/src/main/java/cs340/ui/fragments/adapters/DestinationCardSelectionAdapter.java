@@ -52,6 +52,7 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
         public TextView destinationTo;
         public ImageView check;
         public RelativeLayout relativeLayout;
+        public TextView points;
 
         public ViewHolder(View v) {
             super(v);
@@ -60,6 +61,7 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
             destinationTo = v.findViewById(R.id.destination_list_item_to);
             check = v.findViewById(R.id.destcard_check);
             relativeLayout = v.findViewById(R.id.destcard_relativelayout);
+            points = v.findViewById(R.id.destination_list_item_points);
         }
     }
 
@@ -98,6 +100,8 @@ public class DestinationCardSelectionAdapter extends RecyclerView.Adapter<Destin
 
         holder.destinationTo.setText(card.getEndPoint());
         holder.destinationFrom.setText(card.getStartPoint());
+        String cardPoints = "Points: " + String.valueOf(card.getPoints());
+        holder.points.setText(cardPoints);
         holder.check.setVisibility(View.INVISIBLE);
 
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {

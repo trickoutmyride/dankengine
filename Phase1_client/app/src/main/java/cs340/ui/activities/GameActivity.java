@@ -52,20 +52,9 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
  */
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
 
-    //Phase 3 To Dos:
-    //TODO: Presenter Classes onError
-    //TODO: Draw Additional Destination Cards
-        //When you draw additional, you must keep at least one
-        //End turn after draw
-
     //Phase 2 to dos
     //TODO: Detach presenters
-    //TODO: Implement draw destination card functionality (phase 3?)
     //TODO: Display points on Destination Card?
-
-    //Phase 1 to dos
-    //TODO: Implement capacity check (LobbyActivity)
-    //Todo: Disable join full game "feature" (PreGameActivity)
 
 
     //Data Members
@@ -282,6 +271,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                         compareCount++;
                     }
                 }
+                ClientModel.getInstance().getCurrentGame().setTrainFaceup(faceUpCards);
+                currentGame = ClientModel.getInstance().getCurrentGame();
                 deckFragment.initializeFaceUpCards(faceUpCards);
                 deckFragment.updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
             }
@@ -355,7 +346,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         Gson gson = new Gson();
 
         //Pass game and current player to the game over activity
-        intent.putExtra("currentGame", gson.toJson(currentGame));
+        intent.putExtra("currentGame", gson.toJson(ClientModel.getInstance().getCurrentGame()));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
         startActivity(intent);
         finish();

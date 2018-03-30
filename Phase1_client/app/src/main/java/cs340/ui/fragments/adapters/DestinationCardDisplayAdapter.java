@@ -32,6 +32,7 @@ public class DestinationCardDisplayAdapter extends RecyclerView.Adapter<Destinat
         public TextView destinationFrom;
         public TextView destinationTo;
         public ImageView check;
+        public TextView points;
 
         public ViewHolder(View v) {
             super(v);
@@ -39,6 +40,7 @@ public class DestinationCardDisplayAdapter extends RecyclerView.Adapter<Destinat
             destinationFrom = v.findViewById(R.id.destination_list_item_from);
             destinationTo = v.findViewById(R.id.destination_list_item_to);
             check = v.findViewById(R.id.destcard_check);
+            points = v.findViewById(R.id.destination_list_item_points);
         }
     }
 
@@ -66,6 +68,8 @@ public class DestinationCardDisplayAdapter extends RecyclerView.Adapter<Destinat
 
         holder.destinationTo.setText(card.getEndPoint());
         holder.destinationFrom.setText(card.getStartPoint());
+        String cardPoints = "Points: " + String.valueOf(card.getPoints());
+        holder.points.setText(cardPoints);
 
         //If completed
         //holder.check.setVisibility(View.VISIBLE);
