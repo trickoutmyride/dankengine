@@ -25,5 +25,6 @@ public class TurnService {
 		if (usernameWithTurn.equals(usernameOfClient)) {
 			ServerProxy.setTurnState(new MyTurnState());
 		}
+		ClientModel.getInstance().replaceHistory(game.getHistory());
 	}
 }

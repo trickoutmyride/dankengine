@@ -102,6 +102,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyActivity {
                 }
                 else {
                     lobbyPresenter.startGame();
+                    startButton.setEnabled(false);
                 }
             }
         });

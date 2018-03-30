@@ -8,5 +8,6 @@ import java.util.ArrayList;
 
 public interface IHistoryFragment {
 
-    public void updateHistory(String historyItem);
+    void updateHistory(String historyItem);
+    void replaceHistory(ArrayList<String> history);
 }

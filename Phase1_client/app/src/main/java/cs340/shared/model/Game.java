@@ -24,6 +24,7 @@ public class Game {
 	private int winner;
 	private int longestRoadIndex;
 	private Deque<DestinationCard> destinationDeck;
+	private ArrayList<String> history;
 
 
 	/* "Maybe Later" Fields */
@@ -166,6 +167,9 @@ public class Game {
 	public ArrayList<TrainCard> getTrainDeck() { return trainDeck; }
 	public Deque<DestinationCard> getDestinationDeck() {
 		return destinationDeck;
+	}
+	public ArrayList<String> getHistory() {
+		return history;
 	}
 
 }

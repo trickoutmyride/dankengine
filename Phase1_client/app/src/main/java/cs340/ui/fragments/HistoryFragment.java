@@ -61,9 +61,14 @@ public class HistoryFragment extends DialogFragment implements IHistoryFragment 
 
     @Override
     public void updateHistory(String newItem){
-
-        //currentHistory.add(newItem);
+        currentHistory.add(newItem);
         historyListAdapter = new HistoryListAdapter(currentHistory, getContext());
+        historyList.setAdapter(historyListAdapter);
+    }
+
+    @Override
+    public void replaceHistory(ArrayList<String> history){
+        historyListAdapter = new HistoryListAdapter(history, getContext());
         historyList.setAdapter(historyListAdapter);
     }
 

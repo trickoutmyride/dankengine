@@ -191,6 +191,7 @@ public class ClientModel {
 	//done
 	public interface HistoryObserver extends ErrorObserver {
 		void onHistoryUpdated(String history);
+		void onHistoryReplaced(ArrayList<String> history);
 	}
 
 	public void addHistoryObserver(HistoryObserver observer){
@@ -206,6 +207,11 @@ public class ClientModel {
 	//Update the game history
 	public void updateHistory(String history){
 		for (HistoryObserver observer : historyObservers) { observer.onHistoryUpdated(history); }
+	}
+
+	//Replace history entirely
+	public void replaceHistory(ArrayList<String> history){
+		for (HistoryObserver observer : historyObservers) { observer.onHistoryReplaced(history); }
 	}
 
 

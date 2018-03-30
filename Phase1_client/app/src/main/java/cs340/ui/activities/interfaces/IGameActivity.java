@@ -23,4 +23,5 @@ public interface IGameActivity {
     void onError(String message);
     void onGameEnded();
     void setCurrentGame(Game game);
+    void onHistoryReplaced(ArrayList<String> history);
 }

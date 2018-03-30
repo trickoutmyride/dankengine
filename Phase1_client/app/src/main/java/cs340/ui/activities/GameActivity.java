@@ -199,6 +199,19 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             }
         });
     }
+    @Override
+    public void onHistoryReplaced(final ArrayList<String> history) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                currentHistory = history;
+                if (historyFragment != null)
+                {
+                    historyFragment.replaceHistory(history);
+                }
+            }
+        });
+    }
 
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
