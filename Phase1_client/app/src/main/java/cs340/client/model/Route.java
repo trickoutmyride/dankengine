@@ -8,7 +8,9 @@ public class Route {
 	private String color;
 
 	public Route(String start, String end, int spaces, String color) {
-		this.endpoints = endpoints;
+		this.endpoints = new ArrayList<String>();
+		this.endpoints.add(start);
+		this.endpoints.add(end);
 		this.spaces = spaces;
 		this.color = color;
 	}
