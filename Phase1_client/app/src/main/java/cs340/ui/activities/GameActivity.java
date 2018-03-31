@@ -234,19 +234,24 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
     @Override
-    public void onDrawnDestinationCards(ArrayList<DestinationCard> cards, boolean gameStarted) {
-        //Pop up Destination Card dialog for initial destination card selection
-        Bundle bundle = new Bundle();
-        Gson gson = new Gson();
-        bundle.putString("player", gson.toJson(currentPlayer));
-        final Type type = new TypeToken<ArrayList<DestinationCard>>(){}.getType();
-        bundle.putString("newCards", gson.toJson(cards, type));
-        bundle.putBoolean("gameStarted", gameStarted);
-        bundle.putBoolean("selection", true);
-        destinationCardFragment = new DestinationCardFragment();
-        FragmentManager fm = getFragmentManager();
-        destinationCardFragment.setArguments(bundle);
-        destinationCardFragment.show(fm, "destinationfragment");
+    public void onDrawnDestinationCards(final ArrayList<DestinationCard> cards, final boolean gameStarted) {
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                //Pop up Destination Card dialog for initial destination card selection
+                Bundle bundle = new Bundle();
+                Gson gson = new Gson();
+                bundle.putString("player", gson.toJson(currentPlayer));
+                final Type type = new TypeToken<ArrayList<DestinationCard>>(){}.getType();
+                bundle.putString("newCards", gson.toJson(cards, type));
+                bundle.putBoolean("gameStarted", gameStarted);
+                bundle.putBoolean("selection", true);
+                destinationCardFragment = new DestinationCardFragment();
+                FragmentManager fm = getFragmentManager();
+                destinationCardFragment.setArguments(bundle);
+                destinationCardFragment.show(fm, "destinationfragment");
+            }
+        });
     }
 
     //called by updateFaceUpDeck in DeckPresenter
@@ -353,9 +358,16 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
     @Override
-    public void onError(String message){
-        Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
-        toast.show();
+    public void onError(final String message){
+
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                Toast toast = Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
+
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
