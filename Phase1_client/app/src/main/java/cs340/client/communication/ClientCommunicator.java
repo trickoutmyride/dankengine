@@ -116,7 +116,7 @@ public class ClientCommunicator {
 	 * @post The ServerMessage is sent to the server via the WebSocket connection.
 	 */
 	public void sendMessage(ServerMessage message) {
-		System.out.println("Sending message object..." + message.getId());
+		System.out.println("Sending message object..." + message.getContents());
 		this.userSession.getAsyncRemote().sendText(gson.toJson(message));
 	}
 

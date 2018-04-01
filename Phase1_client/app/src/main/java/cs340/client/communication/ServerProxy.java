@@ -116,7 +116,7 @@ public class ServerProxy implements IServer {
 		ClientCommunicator.getInstance().sendMessage(message);
 
 		// It is no longer your turn per state pattern. It should always be NotMyTurnState at this point
-		if(turnState.getClass() == NotMyTurnState.class) {
+		if(isDuringGame && turnState.getClass() == NotMyTurnState.class) {
 			this.endTurn(new EndTurnRequest(discardRequest.getPlayer()));
 		}
 	}
