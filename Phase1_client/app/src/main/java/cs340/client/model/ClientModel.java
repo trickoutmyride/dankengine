@@ -20,6 +20,12 @@ public class ClientModel {
 	private ArrayList<GameObserver> gameObservers = new ArrayList<>();
 	private ArrayList<ChatObserver> chatObservers = new ArrayList<>();
 
+	private GameMap gameMap = new GameMap();
+
+	public GameMap getGameMap() {
+		return gameMap;
+	}
+
 	private ClientModel() {}
 
 	public void addErrorObserver(ErrorObserver observer) {

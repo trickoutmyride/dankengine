@@ -20,7 +20,6 @@ public class Game {
 	private ArrayList<Route> unclaimedRoutes;
 	private ArrayList<TrainCard> trainDeck;
 	private ArrayList<TrainCard> trainFaceup;
-	private GameMap gameMap;
 	private int winner;
 	private int longestRoadIndex;
 	private Deque<DestinationCard> destinationDeck;
@@ -40,7 +39,6 @@ public class Game {
 		//this.gameID = ServerModel.getNextGameID();
 		this.colors = new HashMap<String,String>();
 		this._hasStarted = false;
-		this.gameMap = new GameMap(this);
 	}
 
 	/* Methods */
@@ -50,11 +48,6 @@ public class Game {
 	public void addLobbyObserver(LobbyObserver observer) {
 		lobbyObservers.add(observer);
 		addErrorObserver(observer);
-	}
-
-	public GameMap getGameMap() {
-		if (gameMap == null) gameMap = new GameMap(this);
-		return gameMap;
 	}
 
 	public String getGameName() {

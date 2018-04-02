@@ -23,7 +23,7 @@ import cs340.ui.presenters.interfaces.IMapPresenter;
 public class MapPresenter implements GameMap.Observer, IMapPresenter {
     public static final String TAG = MapPresenter.class.getSimpleName();
     private static Map<Integer, String> colors = new HashMap<>();
-    private GameMap map = ClientModel.getInstance().getCurrentGame().getGameMap();
+    private GameMap map = ClientModel.getInstance().getGameMap();
     private IMapFragment mapFragment;
 
     static {

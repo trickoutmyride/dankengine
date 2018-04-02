@@ -11,19 +11,10 @@ import cs340.ui.R;
 
 public class GameMap {
     public static final String TAG = GameMap.class.getSimpleName();
-    private Game game;
-    private List<Observer> observers;
+    private List<Observer> observers = new ArrayList<>();
     private Map<Pair<String, String>, MapRoute> routes = MapRoute.copyRouteMap();
 
-    public GameMap(Game game) {
-        this.game = game;
-        if (game == null) {
-            throw new RuntimeException("received null game");
-        }
-    }
-
     public void addObserver(Observer observer) {
-        if (observers == null) observers = new ArrayList<>();
         observers.add(observer);
     }
 
@@ -50,13 +41,13 @@ public class GameMap {
                 color = 0;
         }
         Log.d(TAG, "onRouteClaimed with " + Integer.toString(observers.size()) + " observers");
-        if (routes == null) routes = MapRoute.copyRouteMap();
-        routes.get(new Pair<>(start, end)).setColor(color);
+        Pair<String, String> key = new Pair<>(start, end);
+        if (!routes.containsKey(key)) key = new Pair<>(end, start);
+        routes.get(key).setColor(color);
         for (Observer observer : observers) observer.onRouteClaimed(routes);
     }
 
     public void removeObserver(Observer observer) {
-        if (observers == null) observers = new ArrayList<>();
         observers.remove(observer);
     }
 
