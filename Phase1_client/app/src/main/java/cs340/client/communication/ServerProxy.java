@@ -3,9 +3,6 @@ package cs340.client.communication;
 import com.google.gson.Gson;
 
 import cs340.client.command.CommandManager;
-import cs340.client.states.MyTurnState;
-import cs340.client.states.NotMyTurnState;
-import cs340.client.states.TurnState;
 import cs340.client.command.ServerCommand;
 import cs340.client.interfaces.IServer;
 import cs340.client.message.ServerMessage;
@@ -20,6 +17,9 @@ import cs340.client.requests.EndTurnRequest;
 import cs340.client.requests.JoinGameRequest;
 import cs340.client.requests.SignInRequest;
 import cs340.client.requests.StartGameRequest;
+import cs340.client.states.MyTurnState;
+import cs340.client.states.NotMyTurnState;
+import cs340.client.states.TurnState;
 
 public class ServerProxy implements IServer {
 	private static Gson gson = new Gson();
@@ -35,6 +35,7 @@ public class ServerProxy implements IServer {
 
 
 	public void createGame(Object request) {
+		System.out.println("ServerProxy: createGame()");
 		turnState = new MyTurnState();
 		CreateGameRequest createRequest = (CreateGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("createGame", request);
@@ -44,6 +45,7 @@ public class ServerProxy implements IServer {
 
 
 	public void joinGame(Object request) {
+		System.out.println("ServerProxy: joinGame()");
 		turnState = new NotMyTurnState();
 		JoinGameRequest joinRequest = (JoinGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("joinGame", request);
@@ -52,6 +54,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void login(Object request, String address) {
+		System.out.println("ServerProxy: login()");
 		ClientCommunicator.initialize(address);
 		SignInRequest loginRequest = (SignInRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("login", request);
@@ -60,6 +63,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void register(Object request, String address) {
+		System.out.println("ServerProxy: register()");
 		ClientCommunicator.initialize(address);
 		SignInRequest registerRequest = (SignInRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("register", request);
@@ -68,6 +72,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void startGame(Object request) {
+		System.out.println("ServerProxy: startGame()");
 		StartGameRequest startRequest = (StartGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("startGame", request);
 		ServerMessage message = new ServerMessage(startRequest.getPlayer().getAuthToken(), command);
@@ -75,6 +80,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void claimRoute(Object request) {
+		System.out.println("ServerProxy: claimRoute()");
 		ClaimRouteRequest claimRequest = (ClaimRouteRequest) request;
 		turnState = turnState.claimRoute();
 		if (!turnState.isSuccess()) return;
@@ -87,6 +93,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void drawDestination(Object request) {
+		System.out.println("ServerProxy: drawDestination()");
 		DrawDestinationRequest drawRequest = (DrawDestinationRequest) request;
 		turnState = turnState.drawDestination();
 		if (!turnState.isSuccess()) return;
@@ -100,9 +107,10 @@ public class ServerProxy implements IServer {
 	 * @param isDuringGame if true, change turnState, false for the first set you draw at start of game.
 	 */
 	public void discardDestination(Object request, boolean isDuringGame) {
+		System.out.println("ServerProxy: discardDestination() with isDuringGame = " + isDuringGame);
 		DiscardDestinationRequest discardRequest = (DiscardDestinationRequest) request;
 		if (isDuringGame) {
-			turnState = turnState.drawDestination();
+			turnState = turnState.discardDestination();
 			if (!turnState.isSuccess()) return;
 		}
 
@@ -118,6 +126,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void drawTrainCard (Object request) {
+		System.out.println("ServerProxy: drawTrainCard()");
 		DrawTrainCardRequest drawRequest = (DrawTrainCardRequest) request;
 		turnState = turnState.drawTrainCard();
 		if (!turnState.isSuccess()) return;
@@ -133,7 +142,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void drawFaceupCard (Object request) {
-		System.out.println("drawFaceupCard");
+		System.out.println("ServerProxy: drawFaceupCard()");
 		DrawFaceupRequest drawRequest = (DrawFaceupRequest) request;
 		turnState = turnState.drawFaceupCard(drawRequest);
 		if (!turnState.isSuccess()) return;
@@ -149,7 +158,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void endTurn(Object request) {
-		System.out.println("Sending endTurn");
+		System.out.println("ServerProxy: endTurn()");
 		EndTurnRequest endRequest = (EndTurnRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("endTurn", request);
 		ServerMessage message = new ServerMessage(endRequest.getPlayer().getAuthToken(), command);
@@ -157,6 +166,7 @@ public class ServerProxy implements IServer {
 	}
 
 	public void chat(Object request) {
+		System.out.println("ServerProxy: chat()");
 		ChatRequest chatRequest = (ChatRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("chat", request);
 		ServerMessage message = new ServerMessage(chatRequest.getPlayer().getAuthToken(), command);

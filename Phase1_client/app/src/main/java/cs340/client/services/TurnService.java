@@ -18,6 +18,10 @@ public class TurnService {
 		proxy.endTurn(new EndTurnRequest(player));
 	}
 
+	public static void endGame(Game game) {
+		ClientModel.getInstance().endGame(game);
+	}
+
 	public static void nextTurn(Game game) {
 		ClientModel.getInstance().changeTurn(game);
 		String usernameWithTurn = game.getPlayers().get(game.getTurn()).getUsername();

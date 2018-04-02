@@ -113,6 +113,12 @@ public class ClientFacade implements IClient {
 		TurnService.nextTurn(result.getGame());
 	}
 
+	public void endGame(String endTurnJson) {
+		System.out.println("ClientFacade: endTurn()" + endTurnJson);
+		EndTurnResult result = gson.fromJson(endTurnJson, EndTurnResult.class); // has same info as EndTurnResult
+		TurnService.endGame(result.getGame());
+	}
+
 	public void claimRoute(String routeJson) {
 		System.out.println("ClientFacade: claimRoute() " + routeJson);
 		ClaimRouteResult result = gson.fromJson(routeJson, ClaimRouteResult.class);
