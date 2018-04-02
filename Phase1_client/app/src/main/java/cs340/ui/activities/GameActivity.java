@@ -51,12 +51,6 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
  *
  */
 public class GameActivity extends AppCompatActivity implements IGameActivity, DestinationCardFragment.DestinationCardDialogListener {
-
-    //Phase 2 to dos
-    //TODO: Detach presenters
-    //TODO: Display points on Destination Card?
-
-
     //Data Members
     private IGamePresenter gamePresenter;
     private ImageButton chatButton, historyButton, destinationCardButton;
@@ -162,19 +156,13 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    /**
-     *  Callbacks:
-     *      onHistoryItemUpdated()      - Adds new history item to fragment and log
-     *      onDialogPositiveClick()     - Destination Card Fragment selection confirmed - send discarded to server
-     *      onChatUpdated()             - New message - add to chat log and display if dialog visible
-     *      onDrawnDestinationCards()   - Not implemented (Phase 3)
-     *      onPlayerCardsUpdated()      - Player has drawn new cards - update cards in currentPlayer and display
-     *          Two methods - first updates deck AND player, second just updates player
-     *      onPlayerUpdated()           - Updates player info in PlayerFragment
-     *      onTurnUpdated()             - Updates whose turn it is
-     *      onDestinationCardsUpdated() - New destination cards received from the server
-     */
+    // Callbacks
 
+    /**
+     * onHistoryItemUpdated()
+     * Adds new history item to fragment, log
+     * @param item history item to be added
+     */
     @Override
     public void onHistoryItemUpdated(final String item){
         runOnUiThread(new Runnable() {
@@ -188,6 +176,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             }
         });
     }
+
+    /**
+     * onHistoryReplaced()
+     * Replace entire history log
+     * @param history arraylist of history items
+     */
     @Override
     public void onHistoryReplaced(final ArrayList<String> history) {
         runOnUiThread(new Runnable() {
@@ -202,6 +196,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
+    /**
+     * onDialogPositiveClick()
+     * Destination Card Fragment selection confirmed - send discarded to server
+     * @param dialog the dialog fragment whose button was clicked
+     */
     @Override
     public void onDialogPositiveClick(DialogFragment dialog) {
         DestinationCardFragment dcf = (DestinationCardFragment)dialog;
@@ -215,11 +214,20 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         }
     }
 
+    /**
+     * onDrawNewDestinationCardsSelected()
+     * Called when the "Draw New Destination Cards" button is clicked
+     */
     @Override
     public void onDrawNewDestinationCardsSelected() {
         DeckService.drawDestination(currentGame.getGameID(), currentPlayer);
     }
 
+    /**
+     * onChatUpdated()
+     * New message - add to chat log and display if dialog visible
+     * @param message the new message received
+     */
     public void onChatUpdated(final String message){
 
         runOnUiThread(new Runnable() {
@@ -234,12 +242,17 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
+    /**
+     * onDrawnDestinationCards()
+     * Pop up a new Destination Card Selection dialog
+     * @param cards destination cards that can be selected
+     * @param gameStarted tells the dialog whether or not this is the initial selection
+     */
     @Override
     public void onDrawnDestinationCards(final ArrayList<DestinationCard> cards, final boolean gameStarted) {
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                //Pop up Destination Card dialog for initial destination card selection
                 Bundle bundle = new Bundle();
                 Gson gson = new Gson();
                 bundle.putString("player", gson.toJson(currentPlayer));
@@ -253,8 +266,20 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 destinationCardFragment.show(fm, "destinationfragment");
             }
         });
+
+
     }
 
+    /**
+     * onPlayerCardsUpdated()
+     * Called by updateFaceUpDeck in DeckPresenter
+     * This will update the players fragment and hand fragment with the new cards and the face up deck with a new card
+     * @param index index of card that was selected
+     * @param oldCard old card to be replaced in the face up deck
+     * @param newCard new card to be added to the face up deck
+     * @param player player who drew cards
+     * @param faceUpCards total list of face up deck cards
+     */
     //called by updateFaceUpDeck in DeckPresenter
     @Override
     public void onPlayerCardsUpdated(final int index, final TrainCard oldCard, final TrainCard newCard, final Player player, final ArrayList<TrainCard> faceUpCards){
@@ -285,6 +310,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
+    /**
+     * onPlayerCardsUpdated()
+     * Update a specific player's cards
+     * @param player player whose cards changed
+     */
     @Override
     public void onPlayerCardsUpdated(final Player player){
         runOnUiThread(new Runnable() {
@@ -299,6 +329,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
+    /**
+     * onPlayerUpdated()
+     * Update player info (cards, points, etc)
+     * @param player player to update
+     */
     @Override
     public void onPlayerUpdated(final Player player){
         runOnUiThread(new Runnable() {
@@ -311,6 +346,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
+    /**
+     * onTurnUpdated()
+     * Called when turn changed - update the player list, deck counts, etc.
+     * @param game current state of the game
+     */
     @Override
     public void onTurnUpdated(final Game game){
         runOnUiThread(new Runnable() {
@@ -327,6 +367,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         });
     }
 
+    /**
+     * onDestinationCardsUpdated()
+     * Player's destination cards were updated - update fragment
+     * @param player player whose destination cards were updated
+     */
     @Override
     public void onDestinationCardsUpdated(final Player player){
         for (DestinationCard c : player.getDestinations()){
@@ -338,12 +383,17 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
+                    ClientModel.getInstance().setCurrentPlayer(player);
                 }
                 playersFragment.onPlayerUpdated(player);
             }
         });
     }
 
+    /**
+     * onGameEnded()
+     * Game is over, go to the game over activity
+     */
     @Override
     public void onGameEnded() {
         //Go to game over activity
@@ -357,9 +407,13 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         finish();
     }
 
+    /**
+     * onError()
+     * Display a toast with an error message
+     * @param message error message to be displayed
+     */
     @Override
     public void onError(final String message){
-
         runOnUiThread(new Runnable(){
             @Override
             public void run() {
@@ -371,17 +425,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-    //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-    /**
-     *  Getters:
-     *      getCurrentPlayer()      - gets current player
-     *      getCurrentGame()        - gets current game
-     *      getGamePresenter()      - gets GamePresenter
-     *      myTurn()                - gets whether or not it's the current player's turn
-     *      getTurnIndex()          - gets index of the player whose turn it is
-     */
+    // Getters and Setters
 
     public Player getCurrentPlayer() {
         return currentPlayer;
@@ -390,9 +434,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         return currentGame;
     }
     public IGamePresenter getGamePresenter() { return gamePresenter; }
-    public boolean myTurn(){
-        return currentGame.getPlayers().get(currentGame.getTurn()).getUsername().equals(currentPlayer.getUsername());
-    }
+    public boolean myTurn(){ return currentGame.getPlayers().get(currentGame.getTurn()).getUsername().equals(currentPlayer.getUsername()); }
     public int getTurnIndex(){
         return currentGame.getTurn();
     }
