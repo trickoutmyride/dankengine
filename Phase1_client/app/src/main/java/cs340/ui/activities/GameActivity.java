@@ -209,8 +209,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         DestinationCardSelectionAdapter dcsa = dcf.getDestinationCardSelectionAdapter();
         ArrayList<DestinationCard> unselected = dcsa.getUnselectedCards();
         //If a card was discarded, send it to the server
-        if (unselected.size() != 0) {
-            DeckService.discardDestination(currentGame.getGameID(), unselected, currentPlayer, dcf.getGameStarted());
+        DeckService.discardDestination(currentGame.getGameID(), unselected, currentPlayer, dcf.getGameStarted());
+        for(DestinationCard card : unselected){
+            System.out.println("GameActivity.onDialogPositiveClick: Discard " + card.getStartPoint() + " to " + card.getEndPoint());
         }
     }
 
