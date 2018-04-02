@@ -10,7 +10,7 @@ public class MyTurnState extends TurnState {
 		return new NotMyTurnState();
 	}
 	public TurnState drawDestination(){
-		return new NotMyTurnState();
+		return new DrewDestinationCardState();
 	}
 	public TurnState discardDestination() {
 		this.fail();

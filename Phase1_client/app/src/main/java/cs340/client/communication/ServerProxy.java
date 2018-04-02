@@ -94,12 +94,6 @@ public class ServerProxy implements IServer {
 		ServerCommand command = CommandManager.getInstance().makeCommand("drawDestination", request);
 		ServerMessage message = new ServerMessage(drawRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
-
-		// It is no longer your turn per state pattern.
-		if(turnState.getClass() == NotMyTurnState.class) {
-			this.endTurn(new EndTurnRequest(drawRequest.getPlayer()));
-		}
-
 	}
 
 	/**
@@ -116,8 +110,9 @@ public class ServerProxy implements IServer {
 		ServerMessage message = new ServerMessage(discardRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 
-		// It is no longer your turn per state pattern. It should always be NotMyTurnState at this point
-		if(turnState.getClass() == NotMyTurnState.class && isDuringGame) {
+		// It is no longer your turn per state pattern. It should always be NotMyTurnState at this point, unless these are the first cards being drawn
+		// In that case, isDuringGame will be false, so endTurn will not be called.
+		if(isDuringGame) {
 			this.endTurn(new EndTurnRequest(discardRequest.getPlayer()));
 		}
 	}
