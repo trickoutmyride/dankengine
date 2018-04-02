@@ -17,9 +17,10 @@ public class MapService {
 		ClaimRouteRequest request = new ClaimRouteRequest(player, new Route (start, end, -1, color), spendCards);
 		proxy.claimRoute(request);
 	}
-	public static void onRouteClaimed(String username, Route route) {
+	public static void onRouteClaimed(String username, Route route, Player player) {
 		ClientModel model = ClientModel.getInstance();
 		ArrayList<String> endpoints = route.getEndpoints();
 		ClientModel.getInstance().getGameMap().onRouteClaimed(username, endpoints.get(0), endpoints.get(1));
+		ClientModel.getInstance().updatePlayer(player);
 	}
 }

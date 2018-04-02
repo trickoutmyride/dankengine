@@ -116,7 +116,7 @@ public class ClientFacade implements IClient {
 	public void claimRoute(String routeJson) {
 		System.out.println("ClientFacade: claimRoute() " + routeJson);
 		ClaimRouteResult result = gson.fromJson(routeJson, ClaimRouteResult.class);
-		MapService.onRouteClaimed(result.getUsername(), result.getRoute());
+		MapService.onRouteClaimed(result.getUsername(), result.getRoute(), result.getPlayer());
 	}
 
 	public void error(String error) {

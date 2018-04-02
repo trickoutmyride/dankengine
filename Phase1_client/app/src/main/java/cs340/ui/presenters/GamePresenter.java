@@ -12,7 +12,7 @@ import cs340.ui.presenters.interfaces.IGamePresenter;
 
 //GamePresenter implements HistoryObserver to update the history in the Activity when the dialog is not currently shown
 
-public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserver, ClientModel.ChatObserver {
+public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserver, ClientModel.ChatObserver, ClientModel.PlayersObserver {
     private IGameActivity gameActivity;
 
     public GamePresenter(IGameActivity gameActivity){
@@ -72,4 +72,21 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
 
     }
 
+    @Override
+    public void onGameEnded(Game game) {
+        gameActivity.onGameEnded(game);
+    }
+
+    @Override
+    public void onPlayerUpdated(Player player) {
+        if (player.getUsername().equals(ClientModel.getInstance().getCurrentPlayer().getUsername())){
+            gameActivity.onPlayerUpdated(player);
+            gameActivity.onPlayerCardsUpdated(player);
+        }
+    }
+
+    @Override
+    public void onPlayersUpdated(ArrayList<Player> players) {
+
+    }
 }

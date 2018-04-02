@@ -323,6 +323,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
                     ClientModel.getInstance().setCurrentPlayer(player);
+                    handFragment.onTrainCardsUpdated(player);
                 }
                 playersFragment.onPlayerUpdated(player);
             }
@@ -395,14 +396,12 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
      * Game is over, go to the game over activity
      */
     @Override
-    public void onGameEnded() {
+    public void onGameEnded(Game game) {
         //Go to game over activity
         Intent intent = new Intent(this, EndGameActivity.class);
         Gson gson = new Gson();
-
         //Pass game and current player to the game over activity
-        intent.putExtra("currentGame", gson.toJson(ClientModel.getInstance().getCurrentGame()));
-        intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
+        intent.putExtra("currentGame", gson.toJson(game));
         startActivity(intent);
         finish();
     }

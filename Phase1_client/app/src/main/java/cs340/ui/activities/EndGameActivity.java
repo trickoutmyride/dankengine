@@ -36,7 +36,6 @@ public class EndGameActivity extends AppCompatActivity {
 
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
-        currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
 
         //Display results
         endGameList = findViewById(R.id.end_game_score_list);
