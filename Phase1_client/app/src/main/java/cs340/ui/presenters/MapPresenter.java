@@ -16,6 +16,7 @@ import cs340.client.model.Player;
 import cs340.client.model.TrainCard;
 import cs340.ui.R;
 import cs340.ui.activities.ClaimRouteActivity;
+import cs340.ui.fragments.GameMapFragment;
 import cs340.ui.fragments.interfaces.IMapFragment;
 import cs340.ui.presenters.interfaces.IMapPresenter;
 
@@ -84,8 +85,14 @@ public class MapPresenter implements GameMap.Observer, IMapPresenter {
     }
 
     @Override
-    public void onRouteClaimed(Map<Pair<String, String>, MapRoute> routes) {
+    public void onRouteClaimed(final Map<Pair<String, String>, MapRoute> routes) {
         Log.d(TAG, "onRouteClaimed");
-        mapFragment.onRouteClaimed(routes);
+//        mapFragment.onRouteClaimed(routes);
+        ((GameMapFragment) mapFragment).getActivity().runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                mapFragment.onRouteClaimed(routes);
+            }
+        });
     }
 }
