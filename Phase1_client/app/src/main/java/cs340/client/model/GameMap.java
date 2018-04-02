@@ -50,6 +50,7 @@ public class GameMap {
                 color = 0;
         }
         Log.d(TAG, "onRouteClaimed with " + Integer.toString(observers.size()) + " observers");
+        if (routes == null) routes = MapRoute.copyRouteMap();
         routes.get(new Pair<>(start, end)).setColor(color);
         for (Observer observer : observers) observer.onRouteClaimed(routes);
     }
