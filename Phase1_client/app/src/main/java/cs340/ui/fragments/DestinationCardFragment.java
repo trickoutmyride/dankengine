@@ -136,17 +136,19 @@ public class DestinationCardFragment extends DialogFragment implements Destinati
 
         //If display mode, display selection button
         if (!selection){
-            drawButton = d.findViewById(R.id.draw_destination_button);
-            drawButton.setVisibility(View.VISIBLE);
-            String drawMore = "Draw More Cards (" + String.valueOf(ClientModel.getInstance().getCurrentGame().getDestinationDeck().size()) + ")";
-            drawButton.setText(drawMore);
-            drawButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    listener.onDrawNewDestinationCardsSelected();
-                    d.dismiss();
-                }
-            });
+            if (ClientModel.getInstance().getCurrentGame().getDestinationDeck().size() != 0){
+                drawButton = d.findViewById(R.id.draw_destination_button);
+                drawButton.setVisibility(View.VISIBLE);
+                String drawMore = "Draw More Cards (" + String.valueOf(ClientModel.getInstance().getCurrentGame().getDestinationDeck().size()) + ")";
+                drawButton.setText(drawMore);
+                drawButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        listener.onDrawNewDestinationCardsSelected();
+                        d.dismiss();
+                    }
+                });
+            }
         }
     }
 
