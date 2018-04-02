@@ -1,5 +1,6 @@
 package cs340.client.model;
 
+import android.util.Log;
 import android.util.Pair;
 
 import java.util.ArrayList;
@@ -9,12 +10,16 @@ import java.util.Map;
 import cs340.ui.R;
 
 public class GameMap {
+    public static final String TAG = GameMap.class.getSimpleName();
     private Game game;
     private List<Observer> observers;
     private Map<Pair<String, String>, MapRoute> routes = MapRoute.copyRouteMap();
 
     public GameMap(Game game) {
         this.game = game;
+        if (game == null) {
+            throw new RuntimeException("received null game");
+        }
     }
 
     public void addObserver(Observer observer) {
@@ -23,7 +28,7 @@ public class GameMap {
     }
 
     public void onRouteClaimed(String username, String start, String end) {
-        String colorName = game.getColors().get(username);
+        String colorName = ClientModel.getInstance().getCurrentGame().getColors().get(username);
         Integer color;
         switch (colorName) {
             case "black":
@@ -44,6 +49,7 @@ public class GameMap {
             default:
                 color = 0;
         }
+        Log.d(TAG, "onRouteClaimed with " + Integer.toString(observers.size()) + " observers");
         routes.get(new Pair<>(start, end)).setColor(color);
         for (Observer observer : observers) observer.onRouteClaimed(routes);
     }

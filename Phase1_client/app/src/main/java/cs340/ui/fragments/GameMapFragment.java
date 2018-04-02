@@ -38,6 +38,7 @@ import cs340.ui.presenters.MapPresenter;
 import static android.app.Activity.RESULT_OK;
 
 public class GameMapFragment extends Fragment implements IMapFragment, OnMapReadyCallback {
+    public static final String TAG = GameMapFragment.class.getSimpleName();
     private static final Integer CARD_QUANTITIES_REQUESTED = 24;
     private GoogleMap map;
     private MapPresenter presenter;
@@ -128,6 +129,7 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
 
     @Override
     public void onRouteClaimed(Map<Pair<String, String>, MapRoute> routes) {
+        Log.d(TAG, "onRouteClaimed");
         map.clear();
         for (Map.Entry<Pair<String, String>, MapRoute> entry : routes.entrySet()) {
             MapRoute route = entry.getValue();

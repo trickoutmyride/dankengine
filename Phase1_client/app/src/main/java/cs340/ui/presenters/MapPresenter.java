@@ -20,6 +20,7 @@ import cs340.ui.fragments.interfaces.IMapFragment;
 import cs340.ui.presenters.interfaces.IMapPresenter;
 
 public class MapPresenter implements GameMap.Observer, IMapPresenter {
+    public static final String TAG = MapPresenter.class.getSimpleName();
     private static Map<Integer, String> colors = new HashMap<>();
     private GameMap map = ClientModel.getInstance().getCurrentGame().getGameMap();
     private IMapFragment mapFragment;
@@ -84,6 +85,7 @@ public class MapPresenter implements GameMap.Observer, IMapPresenter {
 
     @Override
     public void onRouteClaimed(Map<Pair<String, String>, MapRoute> routes) {
+        Log.d(TAG, "onRouteClaimed");
         mapFragment.onRouteClaimed(routes);
     }
 }
