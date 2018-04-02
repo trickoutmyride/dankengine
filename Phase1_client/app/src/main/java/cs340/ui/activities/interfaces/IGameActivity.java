@@ -21,7 +21,7 @@ public interface IGameActivity {
     int getTurnIndex();
     void onTurnUpdated(final Game game);
     void onError(String message);
-    void onGameEnded();
+    void onGameEnded(Game game);
     void setCurrentGame(Game game);
     void onHistoryReplaced(ArrayList<String> history);
 }

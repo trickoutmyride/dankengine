@@ -167,6 +167,7 @@ public class ClientModel {
 		void onDrawnDestinationCards(ArrayList<DestinationCard> cards, Player player);
 		void onDestinationCardsUpdated(Player player);
 		void onTurnChanged(Game game);
+		void onGameEnded(Game game);
 	}
 
 	public void addGameObserver(GameObserver observer){
@@ -186,6 +187,10 @@ public class ClientModel {
 
 	public void newDestinationCards(ArrayList<DestinationCard> cards, Player player){
 		for (GameObserver observer : gameObservers){ observer.onDrawnDestinationCards(cards, player); }
+	}
+
+	public void endGame(Game game){
+		for (GameObserver observer : gameObservers){observer.onGameEnded(game);}
 	}
 
 

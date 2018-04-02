@@ -42,8 +42,13 @@ public class DeckPresenter implements IDeckPresenter, ClientModel.DeckObserver {
 
     @Override
     public void cardSelected(int index){
-        System.out.println("DeckPresenter.cardSelected(): index = " + String.valueOf(index));
-        DeckService.drawFaceup(deckFragment.getCurrentPlayer(), index);
+        if (ClientModel.getInstance().getCurrentGame().getTrainFaceup().get(index) == null){
+            deckFragment.getGameActivity().onError("No cards available in Face Up Deck");
+        }
+        else {
+            System.out.println("DeckPresenter.cardSelected(): index = " + String.valueOf(index));
+            DeckService.drawFaceup(deckFragment.getCurrentPlayer(), index);
+        }
     }
 
     @Override

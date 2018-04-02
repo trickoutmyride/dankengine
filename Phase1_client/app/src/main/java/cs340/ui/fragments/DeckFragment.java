@@ -82,24 +82,39 @@ public class DeckFragment extends Fragment implements IDeckFragment {
 
     @Override
     public void onFaceUpCardUpdated(TrainCard card, int index){
-        System.out.println("Old Card: " + currentFaceUpCards.get(index).getColor() + ", New Card: " + card.getColor() + ".");
+        if (card == null){
+            currentFaceUpCards.remove(index);
+            deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
+            faceUpCardsView.setAdapter(deckCardAdapter);
+        }
+        else {
+            System.out.println("Old Card: " + currentFaceUpCards.get(index).getColor() + ", New Card: " + card.getColor() + ".");
 
-        //REPLACE SINGLE CARD IN ARRAY
-        currentFaceUpCards.remove(index);
-        currentFaceUpCards.add(index, card);
+            //REPLACE SINGLE CARD IN ARRAY
+            currentFaceUpCards.remove(index);
+            currentFaceUpCards.add(index, card);
 
-        //Replace cards
-        deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
-        faceUpCardsView.setAdapter(deckCardAdapter);
-        updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
+            //Replace cards
+            deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
+            faceUpCardsView.setAdapter(deckCardAdapter);
+            updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
+        }
     }
 
     @Override
     public void initializeFaceUpCards(ArrayList<TrainCard> cards){
-        currentFaceUpCards = cards;
-        deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
-        faceUpCardsView.setAdapter(deckCardAdapter);
-        updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
+        if (cards == null){
+            currentFaceUpCards = cards;
+            deckCardAdapter = new DeckCardAdapter(new ArrayList<TrainCard>(), getContext());
+            faceUpCardsView.setAdapter(deckCardAdapter);
+            updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
+        }
+        else {
+            currentFaceUpCards = cards;
+            deckCardAdapter = new DeckCardAdapter(currentFaceUpCards, getContext());
+            faceUpCardsView.setAdapter(deckCardAdapter);
+            updateDeckCount(ClientModel.getInstance().getCurrentGame().getTrainDeck().size());
+        }
     }
 
     //Tell the deck presenter that we've selected a card

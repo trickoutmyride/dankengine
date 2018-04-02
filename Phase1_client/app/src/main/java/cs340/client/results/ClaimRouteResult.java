@@ -2,11 +2,13 @@ package cs340.client.results;
 
 import java.util.ArrayList;
 
+import cs340.client.model.Player;
 import cs340.client.model.Route;
 
 public class ClaimRouteResult {
 	private String username;
 	private Route route;
+	private Player player;
 	ArrayList<String> auths;
 	
 	public ClaimRouteResult(String username, Route route, ArrayList<String> auths) {
@@ -37,5 +39,8 @@ public class ClaimRouteResult {
 
 	public void setAuths(ArrayList<String> auths) {
 		this.auths = auths;
+	}
+	public Player getPlayer(){
+		return player;
 	}
 }
