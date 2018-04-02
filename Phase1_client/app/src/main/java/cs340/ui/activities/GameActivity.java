@@ -337,7 +337,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             public void run() {
                 if (currentPlayer.getUsername().equals(player.getUsername())){
                     currentPlayer = player;
-                    ClientModel.getInstance().setCurrentPlayer(player);
                 }
                 playersFragment.onPlayerUpdated(player);
             }

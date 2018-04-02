@@ -122,10 +122,6 @@ public class ClientModel {
 
 	//Phase 2
 
-	public void updateCurrentPlayer(Player currentPlayer) {
-		this.currentPlayer = currentPlayer;
-	}
-
 
 	//Hand Classes
 	public interface HandObserver extends ErrorObserver {
@@ -162,7 +158,7 @@ public class ClientModel {
 	//GameActivity/GamePresenter classes
 
 	public interface GameObserver extends ErrorObserver {
-		void onDrawnDestinationCards(ArrayList<DestinationCard> cards);
+		void onDrawnDestinationCards(ArrayList<DestinationCard> cards, Player player);
 		void onDestinationCardsUpdated(Player player);
 		void onTurnChanged(Game game);
 	}
@@ -182,8 +178,8 @@ public class ClientModel {
 		for (GameObserver observer: gameObservers){observer.onTurnChanged(game);}
 	}
 
-	public void newDestinationCards(ArrayList<DestinationCard> cards){
-		for (GameObserver observer : gameObservers){ observer.onDrawnDestinationCards(cards); }
+	public void newDestinationCards(ArrayList<DestinationCard> cards, Player player){
+		for (GameObserver observer : gameObservers){ observer.onDrawnDestinationCards(cards, player); }
 	}
 
 

@@ -99,6 +99,7 @@ public class ServerProxy implements IServer {
 		if(turnState.getClass() == NotMyTurnState.class) {
 			this.endTurn(new EndTurnRequest(drawRequest.getPlayer()));
 		}
+
 	}
 
 	/**

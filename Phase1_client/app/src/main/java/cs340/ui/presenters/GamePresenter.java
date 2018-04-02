@@ -44,8 +44,10 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     }
 
     @Override
-    public void onDrawnDestinationCards(ArrayList<DestinationCard> cards){
-        gameActivity.onDrawnDestinationCards(cards, true);
+    public void onDrawnDestinationCards(ArrayList<DestinationCard> cards, Player player){
+        if (ClientModel.getInstance().getCurrentPlayer().getUsername().equals(player.getUsername())) {
+            gameActivity.onDrawnDestinationCards(cards, true);
+        }
     }
 
     @Override
@@ -60,7 +62,6 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
 
     @Override
     public void onDestinationCardsUpdated(Player player){
-        ClientModel.getInstance().setCurrentPlayer(player);
         gameActivity.onDestinationCardsUpdated(player);
     }
 

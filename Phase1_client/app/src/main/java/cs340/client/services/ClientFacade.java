@@ -75,7 +75,7 @@ public class ClientFacade implements IClient {
 	public void drawDestination(String destinationJson) {
 		System.out.println("ClientFacade: drawDestination()" + destinationJson);
 		DrawDestinationResult result = gson.fromJson(destinationJson, DrawDestinationResult.class);
-		DeckService.onDrawDestinationCards(result.getPlayer().getDestinations());
+		DeckService.onDrawDestinationCards(result.getCards(), result.getPlayer());
 	}
 
 	public void discardDestination(String destinationJson) {

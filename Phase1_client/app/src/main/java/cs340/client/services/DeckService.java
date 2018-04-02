@@ -40,8 +40,8 @@ public class DeckService {
 		ClientModel.getInstance().updateHandTrainCards(player);
 	}
 
-	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards) {
-		ClientModel.getInstance().newDestinationCards(cards);
+	public static void onDrawDestinationCards(ArrayList<DestinationCard> cards, Player player) {
+		ClientModel.getInstance().newDestinationCards(cards, player);
 	}
 
 	public static void onDiscardDestinationCards(Player player) {
