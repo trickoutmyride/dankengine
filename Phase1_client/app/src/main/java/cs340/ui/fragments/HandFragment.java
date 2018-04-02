@@ -75,11 +75,10 @@ public class HandFragment extends Fragment implements IHandFragment {
 
         //If the current player wasn't updated
         if (!(currentPlayer.getUsername().equals(player.getUsername()))){
-            gameActivity.onPlayerCardsUpdated(player);
             return;
         }
 
-        gameActivity.onPlayerUpdated(player);
+        //gameActivity.onPlayerUpdated(player);
 
         ArrayList<TrainCard> cards = player.getCards();
 

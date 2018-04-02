@@ -79,10 +79,8 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
 
     @Override
     public void onPlayerUpdated(Player player) {
-        if (player.getUsername().equals(ClientModel.getInstance().getCurrentPlayer().getUsername())){
-            gameActivity.onPlayerUpdated(player);
-            gameActivity.onPlayerCardsUpdated(player);
-        }
+        gameActivity.onPlayerUpdated(player);
+        gameActivity.onPlayerCardsUpdated(player);
     }
 
     @Override

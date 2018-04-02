@@ -128,6 +128,8 @@ public class PlayersFragment extends Fragment implements IPlayersFragment {
             System.out.println("onPlayerUpdated() - Current Player");
             currentPlayer = player;
         }
+
+        ((GameActivity)getActivity()).onPlayerCardsUpdated(player);
         int playerNumber = 0;
 
         boolean myTurn;

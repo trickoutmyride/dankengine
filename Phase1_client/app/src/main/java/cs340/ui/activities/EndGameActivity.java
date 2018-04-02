@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.google.gson.Gson;
 
@@ -20,6 +21,7 @@ public class EndGameActivity extends AppCompatActivity {
     private RecyclerView endGameList;
     private LinearLayoutManager endGameLayoutManager;
     private EndGameListAdapter endGameListAdapter;
+    private TextView gameWinner;
 
 
     /**
@@ -35,7 +37,7 @@ public class EndGameActivity extends AppCompatActivity {
         setContentView(R.layout.activity_end_game);
 
         Gson gson = new Gson();
-        currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
+        currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
 
         //Display results
         endGameList = findViewById(R.id.end_game_score_list);
@@ -43,6 +45,18 @@ public class EndGameActivity extends AppCompatActivity {
         endGameList.setLayoutManager(endGameLayoutManager);
         endGameListAdapter = new EndGameListAdapter(this, currentGame.getPlayers(), currentGame);
         endGameList.setAdapter(endGameListAdapter);
+
+        gameWinner = findViewById(R.id.end_game_winner);
+        gameWinner.setText(currentGame.getPlayers().get(currentGame.getWinner()).getUsername());
+
+        System.out.println("EndGameActivity()");
+        System.out.println("Winner: " + currentGame.getPlayers().get(currentGame.getWinner()).getUsername());
+        for (Player p : currentGame.getPlayers()){
+            System.out.println(p.getUsername() + ", Points: " + String.valueOf(p.getPoints()));
+            System.out.println("rte points: " + String.valueOf(p.getClaimedRoutePoints()) + ", dest points: " + String.valueOf(p.getReachedDestinationPoints())
+            + ", unreached dest points: " + String.valueOf(p.getUnreachedDestinationPoints()) + ", longest train points: " + String.valueOf(p.getLongestRoutePoints()));
+        }
+
 
     }
 

@@ -325,7 +325,6 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
                     ClientModel.getInstance().setCurrentPlayer(player);
                     handFragment.onTrainCardsUpdated(player);
                 }
-                playersFragment.onPlayerUpdated(player);
             }
         });
     }
