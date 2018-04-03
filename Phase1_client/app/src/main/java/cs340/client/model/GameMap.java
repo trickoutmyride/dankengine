@@ -32,6 +32,13 @@ public class GameMap {
         return null;
     }
 
+    private void markAllUnclaimable(String start, String end) {
+        Pair<String, String> forwards = new Pair<>(start, end);
+        Pair<String, String> backwards = new Pair<>(end, start);
+        if (routes.containsKey(forwards)) routes.get(forwards).setIsClaimable(false);
+        if (routes.containsKey(backwards)) routes.get(backwards).setIsClaimable(false);
+    }
+
     public void onRouteClaimed(String username, String start, String end, String routeColor) {
         String colorName = ClientModel.getInstance().getCurrentGame().getColors().get(username);
         Integer color;
@@ -54,15 +61,12 @@ public class GameMap {
             default:
                 color = 0;
         }
-//        Log.d(TAG, "onRouteClaimed with " + Integer.toString(observers.size()) + " observers");
-//        Pair<String, String> key = new Pair<>(start, end);
-//        if (!routes.containsKey(key)) key = new Pair<>(end, start);
-//        routes.get(key).setColor(color);
-//        for (Observer observer : observers) observer.onRouteClaimed(routes);
         MapRoute route = getRoute(start, end, routeColor);
+        if (ClientModel.getInstance().getCurrentGame().getCapacity() < 4) markAllUnclaimable(start, end);
         if (route != null) {
             Log.d(TAG, route.getStart().getKey() + " -> " + route.getStop().getKey() + " claimed with " + colorName);
             route.setColor(color);
+            route.setIsClaimable(false);
             for (Observer observer : observers) observer.onRouteClaimed(routes);
         } else {
             Log.d(TAG, "could not find route");

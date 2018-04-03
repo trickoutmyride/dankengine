@@ -58,6 +58,7 @@ public class MapPresenter implements GameMap.Observer, IMapPresenter {
     }
 
     public void claimRoute(MapRoute route) {
+        if (!route.getIsClaimable()) return;
         String color = colors.get(route.getColor());
         Integer size = route.getLength();
         String start = route.getStart().getKey();

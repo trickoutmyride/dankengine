@@ -18,6 +18,7 @@ public class MapRoute {
     private static final Double DOUBLE_OFFSET = 0.1;
     private static final Map<Pair<String, String>, MapRoute> routeMap = new HashMap<>();
     private Integer color;
+    private Boolean isClaimable;
     private Boolean isDouble;
     private Integer length;
     private City start;
@@ -140,7 +141,12 @@ public class MapRoute {
     }
 
     private MapRoute(City start, City stop, Integer length, Integer color, Boolean isDouble) {
+        this(start, stop, length, color, isDouble, true);
+    }
+
+    private MapRoute(City start, City stop, Integer length, Integer color, Boolean isDouble, Boolean isClaimable) {
         this.color = color;
+        this.isClaimable = isClaimable;
         this.isDouble = isDouble;
         this.length = length;
         this.start = start;
@@ -148,7 +154,7 @@ public class MapRoute {
     }
 
     private MapRoute copy() {
-        return new MapRoute(start, stop, length, color, isDouble);
+        return new MapRoute(start, stop, length, color, isDouble, isClaimable);
     }
 
     public static Map<Pair<String, String>, MapRoute> copyRouteMap() {
@@ -171,6 +177,10 @@ public class MapRoute {
 
     public Integer getColor() {
         return color;
+    }
+
+    public Boolean getIsClaimable() {
+        return isClaimable;
     }
 
     public Integer getLength() {
@@ -222,5 +232,9 @@ public class MapRoute {
 
     public void setColor(Integer color) {
         this.color = color;
+    }
+
+    public void setIsClaimable(Boolean isClaimable) {
+        this.isClaimable = isClaimable;
     }
 }
