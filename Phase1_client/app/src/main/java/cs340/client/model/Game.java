@@ -21,7 +21,6 @@ public class Game {
 	private ArrayList<TrainCard> trainDeck;
 	private ArrayList<TrainCard> trainFaceup;
 	private int winner;
-	private int longestRoadIndex;
 	private Deque<DestinationCard> destinationDeck;
 	private ArrayList<String> history;
 
@@ -154,9 +153,6 @@ public class Game {
 		return this.winner;
 	}
 
-	public int getLongestRoadIndex(){
-		return this.longestRoadIndex;
-	}
 	public ArrayList<TrainCard> getTrainDeck() { return trainDeck; }
 	public Deque<DestinationCard> getDestinationDeck() {
 		return destinationDeck;
