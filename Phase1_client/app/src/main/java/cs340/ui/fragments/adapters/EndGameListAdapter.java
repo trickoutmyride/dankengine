@@ -70,7 +70,7 @@ public class EndGameListAdapter extends RecyclerView.Adapter<EndGameListAdapter.
         holder.routePoints.setText(String.valueOf(_players.get(position).getClaimedRoutePoints()));
 
         //This player has the longest road
-        if (_game.getLongestRoadIndex() == position) {
+        if (_players.get(position).getLongestRoutePoints() != 0) {
             holder.longestTrainYN.setText("Yes: ");
             holder.longestTrainYN.setVisibility(View.VISIBLE);
             holder.longestTrainPoints.setText(String.valueOf(_players.get(position).getLongestRoutePoints()));
@@ -78,6 +78,7 @@ public class EndGameListAdapter extends RecyclerView.Adapter<EndGameListAdapter.
         else {
             holder.longestTrainYN.setText("No");
         }
+
 
         holder.destFinishedPoints.setText(String.valueOf(_players.get(position).getReachedDestinationPoints()));
         holder.destFailedPoints.setText(String.valueOf(_players.get(position).getUnreachedDestinationPoints()));
