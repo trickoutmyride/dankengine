@@ -17,6 +17,7 @@ public class Player {
 	private int unreachedDestinationPoints;
 	private int trainCars;
 	private int currentGame;
+	private boolean hasLongestRoute;
 
 	public Player(String u, String p, String a){
 		this.username = u;
@@ -31,7 +32,10 @@ public class Player {
 		this.reachedDestinationPoints = 0;
 		this.unreachedDestinationPoints = 0;
 		this.currentGame = -1;
+		this.hasLongestRoute = false;
 	}
+	public boolean getHasLongestRoute(){ return hasLongestRoute; }
+
 
 	/* Methods */
 	public String getUsername() {
