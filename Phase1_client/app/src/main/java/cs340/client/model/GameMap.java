@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import cs340.ui.R;
+import cs340.ui.presenters.MapPresenter;
 
 public class GameMap {
     public static final String TAG = GameMap.class.getSimpleName();
@@ -18,7 +19,20 @@ public class GameMap {
         observers.add(observer);
     }
 
-    public void onRouteClaimed(String username, String start, String end) {
+    private MapRoute getRoute(String start, String end, String routeColor) {
+        List<Pair<String, String>> keys = new ArrayList<>();
+        keys.add(new Pair<>(start, end));
+        keys.add(new Pair<>(end, start));
+        for (Pair<String, String> key : keys) {
+            if (routes.containsKey(key)) {
+                MapRoute route = routes.get(key);
+                if (routeColor.equals(MapPresenter.colors.get(route.getColor()))) return route;
+            }
+        }
+        return null;
+    }
+
+    public void onRouteClaimed(String username, String start, String end, String routeColor) {
         String colorName = ClientModel.getInstance().getCurrentGame().getColors().get(username);
         Integer color;
         switch (colorName) {
@@ -40,11 +54,19 @@ public class GameMap {
             default:
                 color = 0;
         }
-        Log.d(TAG, "onRouteClaimed with " + Integer.toString(observers.size()) + " observers");
-        Pair<String, String> key = new Pair<>(start, end);
-        if (!routes.containsKey(key)) key = new Pair<>(end, start);
-        routes.get(key).setColor(color);
-        for (Observer observer : observers) observer.onRouteClaimed(routes);
+//        Log.d(TAG, "onRouteClaimed with " + Integer.toString(observers.size()) + " observers");
+//        Pair<String, String> key = new Pair<>(start, end);
+//        if (!routes.containsKey(key)) key = new Pair<>(end, start);
+//        routes.get(key).setColor(color);
+//        for (Observer observer : observers) observer.onRouteClaimed(routes);
+        MapRoute route = getRoute(start, end, routeColor);
+        if (route != null) {
+            Log.d(TAG, route.getStart().getKey() + " -> " + route.getStop().getKey() + " claimed with " + colorName);
+            route.setColor(color);
+            for (Observer observer : observers) observer.onRouteClaimed(routes);
+        } else {
+            Log.d(TAG, "could not find route");
+        }
     }
 
     public void removeObserver(Observer observer) {
