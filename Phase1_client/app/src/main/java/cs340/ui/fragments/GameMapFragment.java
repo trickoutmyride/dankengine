@@ -131,9 +131,17 @@ public class GameMapFragment extends Fragment implements IMapFragment, OnMapRead
     public void onRouteClaimed(Map<Pair<String, String>, MapRoute> routes) {
         Log.d(TAG, "onRouteClaimed");
         map.clear();
+        routeLines.clear();
         for (Map.Entry<Pair<String, String>, MapRoute> entry : routes.entrySet()) {
             MapRoute route = entry.getValue();
             Integer color = getResources().getColor(route.getColor());
+            LatLng start = route.getStartLatLng();
+            LatLng stop = route.getStopLatLng();
+            String startLat = Double.toString(start.latitude);
+            String startLong = Double.toString(start.longitude);
+            String stopLat = Double.toString(stop.latitude);
+            String stopLong = Double.toString(stop.longitude);
+            Log.d(TAG, route.getStart().getKey() + " (" + startLat + ", " + startLong + ") -> " + route.getStop().getKey() + " (" + stopLat + ", " + stopLong + ")");
             PolylineOptions line = new PolylineOptions()
                     .clickable(true)
                     .color(color)

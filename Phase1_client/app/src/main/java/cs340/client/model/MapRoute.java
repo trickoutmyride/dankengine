@@ -1,6 +1,7 @@
 package cs340.client.model;
 
 import android.graphics.Color;
+import android.util.Log;
 import android.util.Pair;
 
 import com.google.android.gms.maps.model.LatLng;
@@ -13,6 +14,7 @@ import java.util.Map;
 import cs340.ui.R;
 
 public class MapRoute {
+    public static final String TAG = MapRoute.class.getSimpleName();
     private static final Double DOUBLE_OFFSET = 0.1;
     private static final Map<Pair<String, String>, MapRoute> routeMap = new HashMap<>();
     private Integer color;
@@ -146,7 +148,7 @@ public class MapRoute {
     }
 
     private MapRoute copy() {
-        return new MapRoute(start, stop, length, color);
+        return new MapRoute(start, stop, length, color, isDouble);
     }
 
     public static Map<Pair<String, String>, MapRoute> copyRouteMap() {
@@ -199,6 +201,7 @@ public class MapRoute {
     }
 
     public LatLng getStartLatLng() {
+        Log.d(TAG, isDouble.toString());
         return isDouble ? offset(start.getLatLng()) : start.getLatLng();
     }
 
