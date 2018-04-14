@@ -21,6 +21,7 @@ import cs340.client.message.MessageDecoder;
 import cs340.client.message.MessageEncoder;
 import cs340.client.message.ServerMessage;
 import cs340.client.requests.SignInRequest;
+import cs340.client.services.ConnectionService;
 
 @ClientEndpoint(
 		decoders = MessageDecoder.class,
@@ -89,6 +90,7 @@ public class ClientCommunicator {
 	@OnClose
 	public void onClose(Session userSession, CloseReason reason) {
 		System.out.println("Closing Websocket: " + reason.getReasonPhrase());
+		ConnectionService.serverDisconnected();
 		this.userSession = null;
 
 		// Attempt to reconnect
@@ -104,6 +106,7 @@ public class ClientCommunicator {
 		} catch (Exception e) {
 			System.out.println("Error attempting to reconnect: " + e.getLocalizedMessage());
 		}
+		ConnectionService.serverConnected();
 	}
 
 	/**

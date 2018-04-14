@@ -24,4 +24,5 @@ public interface IGameActivity {
     void onGameEnded(Game game);
     void setCurrentGame(Game game);
     void onHistoryReplaced(ArrayList<String> history);
+    void toggleReconnectProgress();
 }

@@ -87,4 +87,14 @@ public class GamePresenter implements IGamePresenter, ClientModel.HistoryObserve
     public void onPlayersUpdated(ArrayList<Player> players) {
 
     }
+
+    @Override
+    public void onServerDisconnection(){
+        gameActivity.toggleReconnectProgress();
+    }
+
+    @Override
+    public void onServerConnection(){
+        gameActivity.toggleReconnectProgress();
+    }
 }

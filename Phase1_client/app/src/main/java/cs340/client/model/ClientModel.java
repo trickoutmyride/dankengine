@@ -168,6 +168,8 @@ public class ClientModel {
 		void onDestinationCardsUpdated(Player player);
 		void onTurnChanged(Game game);
 		void onGameEnded(Game game);
+		void onServerConnection();
+		void onServerDisconnection();
 	}
 
 	public void addGameObserver(GameObserver observer){
@@ -191,6 +193,14 @@ public class ClientModel {
 
 	public void endGame(Game game){
 		for (GameObserver observer : gameObservers){observer.onGameEnded(game);}
+	}
+
+	public void serverDisconnected(){
+		for (GameObserver observer : gameObservers){observer.onServerDisconnection();}
+	}
+
+	public void serverConnected(){
+		for (GameObserver observer : gameObservers){observer.onServerConnection();}
 	}
 
 

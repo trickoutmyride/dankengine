@@ -13,5 +13,4 @@ public interface IGamePresenter extends ClientModel.GameObserver, ChatFragment.C
     void onDrawnDestinationCards(ArrayList<DestinationCard> cards, Player player);
     void onTurnChanged(Game game);
     void onHistoryReplaced(ArrayList<String> history);
-
 }

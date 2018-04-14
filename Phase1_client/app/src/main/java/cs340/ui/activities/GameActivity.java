@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -65,6 +66,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
     private Game currentGame;
     private ArrayList<String> currentHistory;
     private ArrayList<String> currentChat;
+    private RelativeLayout reconnectLayout;
 
 
     //Initialize Activity
@@ -82,6 +84,8 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         gamePresenter = new GamePresenter(this);
         currentHistory = new ArrayList<>();
         currentChat = new ArrayList<>();
+        reconnectLayout = findViewById(R.id.reconnect_layout);
+        reconnectLayout.setVisibility(View.GONE);
 
         //Pop up destination card selection
         onDrawnDestinationCards(currentPlayer.getDestinations(), false);
@@ -420,6 +424,25 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             }
         });
 
+    }
+
+    /**
+     * toggleReconnectProgress()
+     * Change the visibility for the reconnection progress bar
+     */
+    @Override
+    public void toggleReconnectProgress(){
+        runOnUiThread(new Runnable(){
+            @Override
+            public void run() {
+                if (reconnectLayout.getVisibility() == View.GONE){
+                    reconnectLayout.setVisibility(View.VISIBLE);
+                }
+                else{
+                    reconnectLayout.setVisibility(View.GONE);
+                }
+            }
+        });
     }
 
     //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
