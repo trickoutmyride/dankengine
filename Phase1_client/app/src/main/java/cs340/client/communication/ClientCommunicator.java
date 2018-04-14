@@ -90,6 +90,20 @@ public class ClientCommunicator {
 	public void onClose(Session userSession, CloseReason reason) {
 		System.out.println("Closing Websocket: " + reason.getReasonPhrase());
 		this.userSession = null;
+
+		// Attempt to reconnect
+		WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+		Session session = null;
+		long counter = 1;
+		try {
+			while (session == null) {
+				Thread.sleep(5000);
+				System.out.println("Reconnect attempt: " + counter);
+				session = container.connectToServer(this, new URI(address));
+			}
+		} catch (Exception e) {
+			System.out.println("Error attempting to reconnect: " + e.getLocalizedMessage());
+		}
 	}
 
 	/**
@@ -151,7 +165,7 @@ public class ClientCommunicator {
 			//clientEndPoint.sendMessage("String Stuff");
 			//clientEndPoint.sendMessage("{'event':'addChannel','channel':'ok_btccny_ticker'}");  // For testing, does work (fails authentication though)
 
-			// wait 5 seconds for messages from websocket
+			// wait 10 seconds for messages from websocket
 			Thread.sleep(10000);
 
 		} catch (Exception e) {
