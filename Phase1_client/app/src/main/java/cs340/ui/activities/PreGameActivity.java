@@ -59,9 +59,6 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
         createGameButton = findViewById(R.id.createGameButton);
 
-        //Initialize adapter for RecyclerView
-        //gameList.setAdapter(gameListAdapter);
-
         //OnClickListener for Create Game button
         createGameButton.setOnClickListener(new Button.OnClickListener(){
             @Override
@@ -74,7 +71,6 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
         //Initialize preGamePresenter
         preGamePresenter = new PregamePresenter(this);
-        //preGamePresenter = new MockPhase1Presenter(this);
     }
 
     public void joinGame(Game game) {
@@ -120,10 +116,10 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
     @Override
     public void onGameListUpdated(ArrayList<Game> games) {
 
-        System.out.println("OnGameListUpdated Activity");
+        System.out.println("PreGameActivity.OnGameListUpdated()");
 
         if (games != null && games.size() != 0){
-            gameListAdapter = new GameListAdapter(games, this);
+            gameListAdapter = new GameListAdapter(games, currentPlayer, this);
             gameList.setAdapter(gameListAdapter);
         }
         else {
