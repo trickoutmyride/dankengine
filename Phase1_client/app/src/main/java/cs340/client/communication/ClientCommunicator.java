@@ -46,9 +46,6 @@ public class ClientCommunicator {
 	public static void initialize(String serverAddress) {
 		singleton = new ClientCommunicator(serverAddress);
 	}
-	public static void replace() {
-
-	}
 	/**
 	 * @pre There is no other ClientCommunicator created.
 	 * @pre endpointURI is a valid address for the Java server.

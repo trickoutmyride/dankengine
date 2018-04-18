@@ -2,7 +2,9 @@ package cs340.client.services;
 
 import com.google.gson.Gson;
 
-import cs340.client.requests.RejoinGameRequest;
+import cs340.client.interfaces.IClient;
+import cs340.client.model.ClientModel;
+import cs340.client.model.GameList;
 import cs340.client.results.ClaimRouteResult;
 import cs340.client.results.CreateGameResult;
 import cs340.client.results.DiscardDestinationResult;
@@ -15,9 +17,6 @@ import cs340.client.results.GameResult;
 import cs340.client.results.JoinGameResult;
 import cs340.client.results.RejoinGameResult;
 import cs340.client.results.SignInResult;
-import cs340.client.interfaces.IClient;
-import cs340.client.model.ClientModel;
-import cs340.client.model.GameList;
 
 /**
  * Executes functions based on ClientCommands processed by CommandProcessor coming from the server.
@@ -51,6 +50,10 @@ public class ClientFacade implements IClient {
 		System.out.println("ClientFacade: rejoinGame()");
 		RejoinGameResult result = gson.fromJson(rejoinJson, RejoinGameResult.class);
 		JoinGameService.onGameRejoined(result.getGame());
+	}
+
+	public void reconnect(String reconnectJson) {
+		//intentionally do nothing.
 	}
 
 	public void login(String signInJson) {

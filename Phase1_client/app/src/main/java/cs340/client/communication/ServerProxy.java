@@ -6,6 +6,7 @@ import cs340.client.command.CommandManager;
 import cs340.client.command.ServerCommand;
 import cs340.client.interfaces.IServer;
 import cs340.client.message.ServerMessage;
+import cs340.client.model.ClientModel;
 import cs340.client.requests.ChatRequest;
 import cs340.client.requests.ClaimRouteRequest;
 import cs340.client.requests.CreateGameRequest;
@@ -15,6 +16,7 @@ import cs340.client.requests.DrawFaceupRequest;
 import cs340.client.requests.DrawTrainCardRequest;
 import cs340.client.requests.EndTurnRequest;
 import cs340.client.requests.JoinGameRequest;
+import cs340.client.requests.ReconnectRequest;
 import cs340.client.requests.RejoinGameRequest;
 import cs340.client.requests.SignInRequest;
 import cs340.client.requests.StartGameRequest;
@@ -60,6 +62,15 @@ public class ServerProxy implements IServer {
 		RejoinGameRequest rejoinRequest = (RejoinGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("rejoinGame", request);
 		ServerMessage message = new ServerMessage(rejoinRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void reconnectToServer() {
+		String auth = ClientModel.getInstance().getCurrentPlayer().getAuthToken();
+		ReconnectRequest reconnectRequest = new ReconnectRequest(auth);
+		Object request = reconnectRequest;
+		ServerCommand command = CommandManager.getInstance().makeCommand("reconnect", request);
+		ServerMessage message = new ServerMessage(reconnectRequest.getAuth(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 
