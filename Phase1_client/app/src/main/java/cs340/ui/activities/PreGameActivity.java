@@ -174,6 +174,9 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         //Pass game and current player to the lobby activity
         intent.putExtra("currentGame", gson.toJson(game));
         intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
+        intent.putExtra("rejoinGame", true);
+        ClientModel.getInstance().setCurrentPlayer(currentPlayer);
+        ClientModel.getInstance().setCurrentGame(game);
         startActivity(intent);
         preGamePresenter.detach();
         finish();

@@ -79,6 +79,9 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         Gson gson = new Gson();
         currentPlayer = gson.fromJson(getIntent().getStringExtra("currentPlayer"), Player.class);
         currentGame = gson.fromJson(getIntent().getStringExtra("currentGame"), Game.class);
+
+        boolean gameRejoined = getIntent().getBooleanExtra("rejoinGame", false);
+
         ClientModel.getInstance().setCurrentPlayer(currentPlayer);
         ClientModel.getInstance().setCurrentGame(currentGame);
         gamePresenter = new GamePresenter(this);
@@ -88,7 +91,7 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
         reconnectLayout.setVisibility(View.GONE);
 
         //Pop up destination card selection
-        onDrawnDestinationCards(currentPlayer.getDestinations(), false);
+        if (!gameRejoined) { onDrawnDestinationCards(currentPlayer.getDestinations(), false); }
 
         //Initialize the rest of the fragments
 
