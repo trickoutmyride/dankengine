@@ -108,6 +108,7 @@ public class ClientCommunicator {
 				System.out.println("Error attempting to reconnect: " + e.getLocalizedMessage());
 			}
 		}
+		new ServerProxy().reconnectToServer();
 	}
 
 	/**
