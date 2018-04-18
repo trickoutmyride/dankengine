@@ -439,9 +439,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             @Override
             public void run() {
                 if (reconnectLayout.getVisibility() == View.GONE){
+                    findViewById(R.id.wrapper).setClickable(false);
                     reconnectLayout.setVisibility(View.VISIBLE);
                 }
                 else{
+                    findViewById(R.id.wrapper).setClickable(true);
                     reconnectLayout.setVisibility(View.GONE);
                 }
             }
