@@ -28,8 +28,7 @@ import cs340.client.services.ConnectionService;
 		encoders = MessageEncoder.class
 )
 public class ClientCommunicator {
-
-	private static final String address = "ws://10.24.217.139:8080/ws/command";
+	private static String address;
 	private static ClientCommunicator singleton;
 	private Session userSession = null;
 	private MessageHandler messageHandler;
@@ -44,18 +43,21 @@ public class ClientCommunicator {
 		return singleton;
 	}
 
-	public static void initialize(String address) {
-		singleton = new ClientCommunicator(address);
+	public static void initialize(String serverAddress) {
+		singleton = new ClientCommunicator(serverAddress);
+	}
+	public static void replace() {
+
 	}
 	/**
 	 * @pre There is no other ClientCommunicator created.
 	 * @pre endpointURI is a valid address for the Java server.
-	 * @param address String representation of IP address of destination
+	 * @param serverAddress String representation of IP address of destination
 	 * @post WebSocket is connected.
 	 *
 	 */
-	private ClientCommunicator(String address) {
-		address = "ws://" + address + ":8080/ws/command";
+	private ClientCommunicator(String serverAddress) {
+		address = "ws://" + serverAddress + ":8080/ws/command";
 		System.out.println("Connecting to " + address);
 		try {
 			WebSocketContainer container = ContainerProvider.getWebSocketContainer();
@@ -95,14 +97,14 @@ public class ClientCommunicator {
 		this.userSession = null;
 
 		// Attempt to reconnect
-		WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 		Session session = null;
 		long counter = 1;
 		while (session == null) {
 			try {
 				while (session == null) {
 					Thread.sleep(5000);
-					System.out.println("Reconnect attempt: " + counter);
+					WebSocketContainer container = ContainerProvider.getWebSocketContainer();
+					System.out.println("Reconnect attempt: " + counter++);
 					session = container.connectToServer(this, new URI(address));
 				}
 			} catch (Exception e) {
