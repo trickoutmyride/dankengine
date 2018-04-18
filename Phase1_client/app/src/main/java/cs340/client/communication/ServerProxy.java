@@ -15,6 +15,7 @@ import cs340.client.requests.DrawFaceupRequest;
 import cs340.client.requests.DrawTrainCardRequest;
 import cs340.client.requests.EndTurnRequest;
 import cs340.client.requests.JoinGameRequest;
+import cs340.client.requests.RejoinGameRequest;
 import cs340.client.requests.SignInRequest;
 import cs340.client.requests.StartGameRequest;
 import cs340.client.states.MyTurnState;
@@ -50,6 +51,15 @@ public class ServerProxy implements IServer {
 		JoinGameRequest joinRequest = (JoinGameRequest) request;
 		ServerCommand command = CommandManager.getInstance().makeCommand("joinGame", request);
 		ServerMessage message = new ServerMessage(joinRequest.getPlayer().getAuthToken(), command);
+		ClientCommunicator.getInstance().sendMessage(message);
+	}
+
+	public void rejoinGame(Object request) {
+		System.out.println("ServerProxy: rejoinGame()");
+		turnState = new NotMyTurnState();
+		RejoinGameRequest rejoinRequest = (RejoinGameRequest) request;
+		ServerCommand command = CommandManager.getInstance().makeCommand("rejoinGame", request);
+		ServerMessage message = new ServerMessage(rejoinRequest.getPlayer().getAuthToken(), command);
 		ClientCommunicator.getInstance().sendMessage(message);
 	}
 

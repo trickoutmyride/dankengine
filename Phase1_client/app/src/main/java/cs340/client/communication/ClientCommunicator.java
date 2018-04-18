@@ -76,6 +76,7 @@ public class ClientCommunicator {
 	 */
 	@OnOpen
 	public void onOpen(Session userSession) {
+		ConnectionService.serverConnected();
 		System.out.println("Opening Websocket");
 		this.userSession = userSession;
 	}
@@ -97,16 +98,17 @@ public class ClientCommunicator {
 		WebSocketContainer container = ContainerProvider.getWebSocketContainer();
 		Session session = null;
 		long counter = 1;
-		try {
-			while (session == null) {
-				Thread.sleep(5000);
-				System.out.println("Reconnect attempt: " + counter);
-				session = container.connectToServer(this, new URI(address));
+		while (session == null) {
+			try {
+				while (session == null) {
+					Thread.sleep(5000);
+					System.out.println("Reconnect attempt: " + counter);
+					session = container.connectToServer(this, new URI(address));
+				}
+			} catch (Exception e) {
+				System.out.println("Error attempting to reconnect: " + e.getLocalizedMessage());
 			}
-		} catch (Exception e) {
-			System.out.println("Error attempting to reconnect: " + e.getLocalizedMessage());
 		}
-		ConnectionService.serverConnected();
 	}
 
 	/**

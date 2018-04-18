@@ -66,20 +66,24 @@ public class GameListAdapter extends RecyclerView.Adapter<GameListAdapter.ViewHo
         System.out.println("OnBindViewHolder " + position);
 
         final Game game = _gameList.get(position);
-
+        /*
         boolean joinedGame = false;
         for (Player p : game.getPlayers()){
             if (p.getUsername().equals(_currentPlayer.getUsername())){
                 joinedGame = true;
             }
         }
+        */
+        /*
         if (joinedGame){
             String gameText = game.getGameName() + " (Rejoin)";
             holder.gameName.setText(gameText);
         }
+
         else{
-            holder.gameName.setText(game.getGameName());
-        }
+        */
+        holder.gameName.setText(game.getGameName());
+        //}
 
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < game.getPlayers().size(); i++) {

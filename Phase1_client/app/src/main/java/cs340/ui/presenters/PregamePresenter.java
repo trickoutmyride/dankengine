@@ -18,8 +18,6 @@ public class PregamePresenter implements IPregamePresenter {
     public PregamePresenter(IPreGameActivity activity) {
         this.activity = activity;
         ClientModel.getInstance().addGameListObserver(this);
-        //Initialize the game list for the activity
-        activity.onGameListUpdated(ClientModel.getInstance().getGameList());
     }
 
     @Override
@@ -35,6 +33,11 @@ public class PregamePresenter implements IPregamePresenter {
     @Override
     public void joinGame(int gameID, Player player, String color) {
         JoinGameService.joinGame(gameID, player, color);
+    }
+
+    @Override
+    public void rejoinGame(Player player){
+        JoinGameService.rejoinGame(player);
     }
 
     @Override

@@ -2,6 +2,7 @@ package cs340.client.services;
 
 import com.google.gson.Gson;
 
+import cs340.client.requests.RejoinGameRequest;
 import cs340.client.results.ClaimRouteResult;
 import cs340.client.results.CreateGameResult;
 import cs340.client.results.DiscardDestinationResult;
@@ -12,6 +13,7 @@ import cs340.client.results.EndTurnResult;
 import cs340.client.results.GameHistoryResult;
 import cs340.client.results.GameResult;
 import cs340.client.results.JoinGameResult;
+import cs340.client.results.RejoinGameResult;
 import cs340.client.results.SignInResult;
 import cs340.client.interfaces.IClient;
 import cs340.client.model.ClientModel;
@@ -42,6 +44,12 @@ public class ClientFacade implements IClient {
 		System.out.println("ClientFacade: joinGame()");
 		//Game game = gson.fromJson(gameJson, Game.class);
 		JoinGameResult result = gson.fromJson(gameJson, JoinGameResult.class);
+		JoinGameService.onGameJoined(result.getGame());
+	}
+
+	public void rejoinGame(String rejoinJson) {
+		System.out.println("ClientFacade: rejoinGame()");
+		RejoinGameResult result = gson.fromJson(rejoinJson, RejoinGameResult.class);
 		JoinGameService.onGameJoined(result.getGame());
 	}
 

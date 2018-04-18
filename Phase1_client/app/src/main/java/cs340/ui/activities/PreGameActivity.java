@@ -15,6 +15,7 @@ import com.google.gson.Gson;
 
 import java.util.ArrayList;
 
+import cs340.client.model.ClientModel;
 import cs340.client.model.Game;
 import cs340.client.model.Player;
 import cs340.ui.R;
@@ -71,6 +72,8 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
         //Initialize preGamePresenter
         preGamePresenter = new PregamePresenter(this);
+        //Initialize Game List
+        onGameListUpdated(ClientModel.getInstance().getGameList());
     }
 
     public void joinGame(Game game) {
@@ -115,6 +118,15 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
 
     @Override
     public void onGameListUpdated(ArrayList<Game> games) {
+
+        //Rejoin game in progress
+        for (Game g : games){
+            for (Player p : g.getPlayers()){
+                if (p.getUsername().equals(currentPlayer.getUsername())){
+                    preGamePresenter.rejoinGame(currentPlayer);
+                }
+            }
+        }
 
         System.out.println("PreGameActivity.OnGameListUpdated()");
 
