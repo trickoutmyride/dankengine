@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -429,6 +430,14 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
 
     }
 
+    private void setClickable(boolean clickable) {
+        ViewGroup layout = findViewById(R.id.wrapper);
+        int n = layout.getChildCount();
+        for (int i = 0; i < n; i++) {
+            layout.getChildAt(i).setClickable(clickable);
+        }
+    }
+
     /**
      * toggleReconnectProgress()
      * Change the visibility for the reconnection progress bar
@@ -439,11 +448,11 @@ public class GameActivity extends AppCompatActivity implements IGameActivity, De
             @Override
             public void run() {
                 if (reconnectLayout.getVisibility() == View.GONE){
-                    findViewById(R.id.wrapper).setClickable(false);
+                    setClickable(false);
                     reconnectLayout.setVisibility(View.VISIBLE);
                 }
                 else{
-                    findViewById(R.id.wrapper).setClickable(true);
+                    setClickable(true);
                     reconnectLayout.setVisibility(View.GONE);
                 }
             }
