@@ -13,4 +13,5 @@ public interface IPregamePresenter extends ClientModel.GameListObserver {
     void joinGame(int gameID, Player player, String color);
     void onGameListUpdated(ArrayList<Game> games);
     void rejoinGame(Player player);
+    void onGameRejoined(Game game);
 }

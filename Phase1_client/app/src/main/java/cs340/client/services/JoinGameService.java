@@ -21,4 +21,5 @@ public class JoinGameService {
 	public static void onGameJoined(Game game) {
 		ClientModel.getInstance().setCurrentGame(game);
 	}
+	public static void onGameRejoined(Game game) { ClientModel.getInstance().rejoinGame(game); }
 }

@@ -11,4 +11,6 @@ public interface IPreGameActivity {
     void onGameListUpdated(ArrayList<Game> games);
 
     void onGameJoined(Game game);
+
+    void onGameRejoined(Game game);
 }

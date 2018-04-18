@@ -157,4 +157,26 @@ public class PreGameActivity extends AppCompatActivity implements CreateGameDial
         return joinGame;
     }
 
+    @Override
+    public void onGameRejoined(Game game){
+        //Go straight to game activity
+        Intent intent = new Intent(this, GameActivity.class);
+        Gson gson = new Gson();
+        System.out.println("PreGameActivity.onGameRejoined()");
+
+        //update player
+        for (Player p : game.getPlayers()){
+            if (p.getUsername().equals(currentPlayer.getUsername())){
+                currentPlayer = p;
+            }
+        }
+
+        //Pass game and current player to the lobby activity
+        intent.putExtra("currentGame", gson.toJson(game));
+        intent.putExtra("currentPlayer", gson.toJson(currentPlayer));
+        startActivity(intent);
+        preGamePresenter.detach();
+        finish();
+    }
+
 }

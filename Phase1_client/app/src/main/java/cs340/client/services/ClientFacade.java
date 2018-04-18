@@ -50,7 +50,7 @@ public class ClientFacade implements IClient {
 	public void rejoinGame(String rejoinJson) {
 		System.out.println("ClientFacade: rejoinGame()");
 		RejoinGameResult result = gson.fromJson(rejoinJson, RejoinGameResult.class);
-		JoinGameService.onGameJoined(result.getGame());
+		JoinGameService.onGameRejoined(result.getGame());
 	}
 
 	public void login(String signInJson) {

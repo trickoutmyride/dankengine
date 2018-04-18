@@ -103,6 +103,10 @@ public class ClientModel {
 		for (GameListObserver observer : gameListObservers) observer.onGameListUpdated(games);
 	}
 
+	public void rejoinGame(Game game){
+		for (GameListObserver observer : gameListObservers) observer.onGameRejoined(game);
+	}
+
 	public void startGame(Game game) {
 		for (GameLobbyObserver observer : gameLobbyObservers) observer.onGameStarted(game);
 	}
@@ -118,6 +122,7 @@ public class ClientModel {
 	public interface GameListObserver extends ErrorObserver {
 		void onCurrentGameSet(Game game);
 		void onGameListUpdated(ArrayList<Game> games);
+		void onGameRejoined(Game game);
 	}
 
 	public interface GameLobbyObserver extends ErrorObserver {
